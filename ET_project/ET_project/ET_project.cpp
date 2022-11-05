@@ -6,7 +6,6 @@
 
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
-//koe
 
 SDL_Event eventImage;
 
@@ -28,8 +27,6 @@ SDL_Texture* CursorTexture = SDL_CreateTextureFromSurface(renderer, cursor);
 
 int main(int argc, char* args[])
 {
-	
-
 
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(quit);
@@ -59,9 +56,9 @@ int main(int argc, char* args[])
 
 	SDL_SetWindowFullscreen(window, SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN ? 0 : SDL_WINDOW_FULLSCREEN);
 	while (playing == true)
-	{ 
+	{
 
-		if (SDL_PollEvent( &eventImage ))
+		if (SDL_PollEvent(&eventImage))
 		{
 			if (SDL_MOUSEMOTION == eventImage.type)
 			{
@@ -73,7 +70,7 @@ int main(int argc, char* args[])
 				{
 					quit = SDL_LoadBMP("./Graphics/QuitHovered.bmp");
 					QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
-					
+
 				}
 				else
 				{
@@ -95,9 +92,9 @@ int main(int argc, char* args[])
 				if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
 				{
 					playing = false;
-					
+
 				}
-				
+
 			}
 			if (SDL_MOUSEBUTTONDOWN == eventImage.type)
 			{
@@ -117,11 +114,11 @@ int main(int argc, char* args[])
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0xff, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-		
+
 		SDL_RenderCopy(renderer, BackgroundTexture, NULL, &BackRect);
 		SDL_RenderCopy(renderer, QuitTexture, NULL, &QuitRect);
 		SDL_RenderCopy(renderer, CursorTexture, NULL, &MouseRect);
 		SDL_RenderPresent(renderer);
-	} 
+	}
 	return 0;
 }
