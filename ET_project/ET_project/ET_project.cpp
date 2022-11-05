@@ -19,11 +19,11 @@ SDL_Surface* cursor = SDL_LoadBMP("");
 
 SDL_Surface* quit = SDL_LoadBMP("./Graphics/QuitNotHovered.bmp");
 
-SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
-SDL_Texture* QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+SDL_Texture* quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 
-SDL_Texture* CursorTexture = SDL_CreateTextureFromSurface(renderer, cursor);
+SDL_Texture* cursorTexture = SDL_CreateTextureFromSurface(renderer, cursor);
 
 int main(int argc, char* args[])
 {
@@ -62,20 +62,25 @@ int main(int argc, char* args[])
 		{
 			if (SDL_MOUSEMOTION == eventImage.type)
 			{
-				int x, y;
+				int x;
+				int y;
+
 				SDL_GetMouseState(&x, &y);
+
 				MouseRect.x = x;
 				MouseRect.y = y;
+
 				if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
 				{
 					quit = SDL_LoadBMP("./Graphics/QuitHovered.bmp");
-					QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+					quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 
 				}
 				else
 				{
 					quit = SDL_LoadBMP("./Graphics/QuitNotHovered.bmp");
-					QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+					quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+
 					if (QuitMin == true)
 					{
 						QuitRect.w = QuitRect.w - 20;
@@ -87,8 +92,11 @@ int main(int argc, char* args[])
 			}
 			if (SDL_MOUSEBUTTONUP == eventImage.type)
 			{
-				int x, y;
+				int x;
+				int y;
+
 				SDL_GetMouseState(&x, &y);
+
 				if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
 				{
 					playing = false;
@@ -98,8 +106,11 @@ int main(int argc, char* args[])
 			}
 			if (SDL_MOUSEBUTTONDOWN == eventImage.type)
 			{
-				int x, y;
+				int x;
+				int y;
+
 				SDL_GetMouseState(&x, &y);
+
 				if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
 				{
 					if (QuitMin == false)
@@ -115,9 +126,9 @@ int main(int argc, char* args[])
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
-		SDL_RenderCopy(renderer, BackgroundTexture, NULL, &BackRect);
-		SDL_RenderCopy(renderer, QuitTexture, NULL, &QuitRect);
-		SDL_RenderCopy(renderer, CursorTexture, NULL, &MouseRect);
+		SDL_RenderCopy(renderer, backgroundTexture, NULL, &BackRect);
+		SDL_RenderCopy(renderer, quitTexture, NULL, &QuitRect);
+		SDL_RenderCopy(renderer, cursorTexture, NULL, &MouseRect);
 		SDL_RenderPresent(renderer);
 	}
 	return 0;
