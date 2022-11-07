@@ -22,9 +22,9 @@ SDL_Surface* background = SDL_LoadBMP("./Graphics/background.bmp");
 
 SDL_Surface* cursor = SDL_LoadBMP("");
 
-SDL_Surface* quit = SDL_LoadBMP("./Graphics/QuitNotHovered.bmp");
+SDL_Surface* quit = SDL_LoadBMP("./Graphics/ButtonQuit.bmp");
 
-SDL_Surface* start = SDL_LoadBMP("./Graphics/StartNotHovered.bmp");
+SDL_Surface* start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
 
 SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
@@ -60,13 +60,13 @@ void QuitButtonOnHoverCheck(SDL_Rect MouseRect, SDL_Rect QuitRect, bool QuitMin)
 	SDL_GetMouseState(&x, &y);
 	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
 	{
-		quit = SDL_LoadBMP("./Graphics/QuitHovered.bmp");
+		quit = SDL_LoadBMP("./Graphics/ButtonQuitHovered.bmp");
 		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 		return void(QuitMin);
 	}
 	else
 	{
-		quit = SDL_LoadBMP("./Graphics/QuitNotHovered.bmp");
+		quit = SDL_LoadBMP("./Graphics/ButtonQuit.bmp");
 		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 		if (QuitMin == true)
 		{
@@ -84,13 +84,13 @@ void PlayButtonOnHoverCheck(SDL_Rect StartRect, bool StartMin)
 	SDL_GetMouseState(&x, &y);
 	if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
 	{
-		start = SDL_LoadBMP("./Graphics/PlayHovered.bmp");
+		start = SDL_LoadBMP("./Graphics/ButtonPlayHovered.bmp");
 		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
 		return void();
 	}
 	else
 	{
-		start = SDL_LoadBMP("./Graphics/PlayNotHovered.bmp");
+		start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
 		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
 		if (StartMin == true)
 		{
@@ -185,7 +185,7 @@ int main(int argc, char* args[])
 	QuitRect.w = 215;
 	QuitRect.h = 129;
 	QuitRect.x = SCREEN_WIDTH / 2 - QuitRect.w / 2;
-	QuitRect.y = SCREEN_HEIGHT - SCREEN_HEIGHT / 2 + 300;
+	QuitRect.y = SCREEN_HEIGHT - SCREEN_HEIGHT / 2 + 200;
 
 	SDL_Rect MouseRect;
 	MouseRect.x = 0;
@@ -194,8 +194,8 @@ int main(int argc, char* args[])
 	MouseRect.h = 50;
 
 	SDL_Rect StartRect;
-	StartRect.w = 215 * 2;
-	StartRect.h = 129 * 2;
+	StartRect.w = 215;
+	StartRect.h = 129;
 	StartRect.x = SCREEN_WIDTH / 2 - StartRect.w / 2;
 	StartRect.y = SCREEN_HEIGHT / 2;
 
