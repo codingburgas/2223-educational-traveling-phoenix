@@ -7,6 +7,11 @@
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
 
+bool QuitMin = false;
+bool StartMin = false;
+
+bool playing = true;
+
 SDL_Event eventImage;
 
 SDL_Window* window = SDL_CreateWindow("Hello SDL WORLD", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -19,18 +24,156 @@ SDL_Surface* cursor = SDL_LoadBMP("");
 
 SDL_Surface* quit = SDL_LoadBMP("./Graphics/QuitNotHovered.bmp");
 
-SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+SDL_Surface* start = SDL_LoadBMP("./Graphics/StartNotHovered.bmp");
 
-SDL_Texture* quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
-SDL_Texture* cursorTexture = SDL_CreateTextureFromSurface(renderer, cursor);
+SDL_Texture* QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+
+SDL_Texture* StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+
+SDL_Texture* CursorTexture = SDL_CreateTextureFromSurface(renderer, cursor);
+
+void Quiting(SDL_Rect QuitRect)
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
+	{
+		playing = false;
+		return void();
+	}
+}
+
+void CustomCursor(SDL_Rect MouseRect)
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	MouseRect.x = x;
+	MouseRect.y = y;
+	return void();
+}
+
+void QuitButtonOnHoverCheck(SDL_Rect MouseRect, SDL_Rect QuitRect, bool QuitMin)
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
+	{
+		quit = SDL_LoadBMP("./Graphics/QuitHovered.bmp");
+		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+		return void(QuitMin);
+	}
+	else
+	{
+		quit = SDL_LoadBMP("./Graphics/QuitNotHovered.bmp");
+		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+		if (QuitMin == true)
+		{
+			QuitRect.w = QuitRect.w - 20;
+			QuitRect.h = QuitRect.h - 20;
+			QuitMin = false;
+			return void(QuitMin);
+		}
+	}
+}
+
+void PlayButtonOnHoverCheck(SDL_Rect StartRect, bool StartMin)
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
+	{
+		start = SDL_LoadBMP("./Graphics/PlayHovered.bmp");
+		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+		return void();
+	}
+	else
+	{
+		start = SDL_LoadBMP("./Graphics/PlayNotHovered.bmp");
+		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+		if (StartMin == true)
+		{
+			StartRect.w = StartRect.w - 20;
+			StartRect.h = StartRect.h - 20;
+			StartMin = false;
+			return void();
+		}
+	}
+}
+
+void QuitButtonEnlarge(SDL_Rect QuitRect, bool QuitMin)
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
+	{
+		if (QuitMin == false)
+		{
+			QuitRect.w = QuitRect.w + 20;
+			QuitRect.h = QuitRect.h + 20;
+			QuitMin = true;
+			return void(QuitMin);
+		}
+	}
+}
+
+void PlayButtonEvent(SDL_Rect StartRect)
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
+	{
+		playing = false;
+		return void(StartRect);
+	}
+}
+
+void ButtonEvents(SDL_Rect MouseRect, SDL_Rect QuitRect, SDL_Rect StartRect, bool QuitMin, bool StartMin)
+{
+	if (SDL_PollEvent(&eventImage))
+	{
+		if (SDL_MOUSEMOTION == eventImage.type)
+		{
+			CustomCursor(MouseRect);
+			QuitButtonOnHoverCheck(MouseRect, QuitRect, QuitMin);
+			PlayButtonOnHoverCheck(StartRect, StartMin);
+		}
+		if (SDL_MOUSEBUTTONUP == eventImage.type)
+		{
+			Quiting(QuitRect);
+			PlayButtonEvent(StartRect);
+		}
+		if (SDL_MOUSEBUTTONDOWN == eventImage.type)
+		{
+			QuitButtonEnlarge(QuitRect, QuitMin);
+		}
+
+
+		if (SDL_MOUSEBUTTONDOWN == eventImage.type)
+		{
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
+			{
+				if (StartMin == false)
+				{
+					StartRect.w = StartRect.w + 20;
+					StartRect.h = StartRect.h + 20;
+					StartMin = true;
+				}
+			}
+		}
+
+	}
+}
 
 int main(int argc, char* args[])
 {
-
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(quit);
 	SDL_FreeSurface(cursor);
+	SDL_FreeSurface(start);
 
 	SDL_Rect BackRect;
 	BackRect.w = SCREEN_WIDTH;
@@ -42,7 +185,7 @@ int main(int argc, char* args[])
 	QuitRect.w = 215;
 	QuitRect.h = 129;
 	QuitRect.x = SCREEN_WIDTH / 2 - QuitRect.w / 2;
-	QuitRect.y = SCREEN_HEIGHT - SCREEN_HEIGHT / 5;
+	QuitRect.y = SCREEN_HEIGHT - SCREEN_HEIGHT / 2 + 300;
 
 	SDL_Rect MouseRect;
 	MouseRect.x = 0;
@@ -50,85 +193,24 @@ int main(int argc, char* args[])
 	MouseRect.w = 50;
 	MouseRect.h = 50;
 
-	bool playing = true;
-
-	bool QuitMin = false;
+	SDL_Rect StartRect;
+	StartRect.w = 215 * 2;
+	StartRect.h = 129 * 2;
+	StartRect.x = SCREEN_WIDTH / 2 - StartRect.w / 2;
+	StartRect.y = SCREEN_HEIGHT / 2;
 
 	SDL_SetWindowFullscreen(window, SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN ? 0 : SDL_WINDOW_FULLSCREEN);
 	while (playing == true)
 	{
-
-		if (SDL_PollEvent(&eventImage))
-		{
-			if (SDL_MOUSEMOTION == eventImage.type)
-			{
-				int x;
-				int y;
-
-				SDL_GetMouseState(&x, &y);
-
-				MouseRect.x = x;
-				MouseRect.y = y;
-
-				if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
-				{
-					quit = SDL_LoadBMP("./Graphics/QuitHovered.bmp");
-					quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
-
-				}
-				else
-				{
-					quit = SDL_LoadBMP("./Graphics/QuitNotHovered.bmp");
-					quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
-
-					if (QuitMin == true)
-					{
-						QuitRect.w = QuitRect.w - 20;
-						QuitRect.h = QuitRect.h - 20;
-						QuitMin = false;
-					}
-				}
-
-			}
-			if (SDL_MOUSEBUTTONUP == eventImage.type)
-			{
-				int x;
-				int y;
-
-				SDL_GetMouseState(&x, &y);
-
-				if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
-				{
-					playing = false;
-
-				}
-
-			}
-			if (SDL_MOUSEBUTTONDOWN == eventImage.type)
-			{
-				int x;
-				int y;
-
-				SDL_GetMouseState(&x, &y);
-
-				if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
-				{
-					if (QuitMin == false)
-					{
-						QuitRect.w = QuitRect.w + 20;
-						QuitRect.h = QuitRect.h + 20;
-						QuitMin = true;
-					}
-				}
-			}
-		}
+		ButtonEvents(MouseRect, QuitRect, StartRect, QuitMin, StartMin);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0xff, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
-		SDL_RenderCopy(renderer, backgroundTexture, NULL, &BackRect);
-		SDL_RenderCopy(renderer, quitTexture, NULL, &QuitRect);
-		SDL_RenderCopy(renderer, cursorTexture, NULL, &MouseRect);
+		SDL_RenderCopy(renderer, BackgroundTexture, NULL, &BackRect);
+		SDL_RenderCopy(renderer, QuitTexture, NULL, &QuitRect);
+		SDL_RenderCopy(renderer, StartTexture, NULL, &StartRect);
+		SDL_RenderCopy(renderer, CursorTexture, NULL, &MouseRect);
 		SDL_RenderPresent(renderer);
 	}
 	return 0;
