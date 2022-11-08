@@ -19,3 +19,11 @@
 <a><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Visual_Studio_Icon_2019.svg/2060px-Visual_Studio_Icon_2019.svg.png" alt="visualstudio" width="60" height="60"/> </a>
 <a><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/2101px-Adobe_Photoshop_CC_icon.svg.png" alt="photoshop" width="60" height="60"/> </a>
 </p>
+
+## 🧰 Installation
+```
+You can download our project by using the green "Code" button.
+
+Or by pasting the following code in your CMD:
+git clone https://github.com/codingburgas/2223-educational-traveling-phoenix.git
+```
