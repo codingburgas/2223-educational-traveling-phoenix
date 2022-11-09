@@ -12,6 +12,10 @@ bool StartMin = false;
 bool playing = true;
 bool OnMap = false;
 
+int CharFlagX;
+int CharFlagY;
+int CharFixY = 0;
+
 SDL_Event eventImage;
 
 SDL_Window* window = SDL_CreateWindow("Hello SDL WORLD", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -28,7 +32,11 @@ SDL_Surface* Arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
 
 SDL_Surface* blackCloset1 = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
 
+SDL_Surface* character = SDL_LoadBMP("./Graphics/character.bmp");
+
 SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+SDL_Texture* characterTexture = SDL_CreateTextureFromSurface(renderer, character);
 
 SDL_Texture* QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 
@@ -63,7 +71,6 @@ void QuitButtonOnHoverCheck(SDL_Rect QuitRect)
 		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 	}
 }
-
 
 void ArrowButtonOnHoverCheck(SDL_Rect ArrowRect)
 {
@@ -135,6 +142,17 @@ void PlayButtonEvent(SDL_Rect StartRect)
 		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 	}
 }
+
+void CharPosEvent()
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (OnMap == true)
+	{
+		CharFlagX = x;
+		CharFlagY = y;
+	}
+}
 	
 void BackToMenu(SDL_Rect ArrowRect)
 {
@@ -158,6 +176,7 @@ void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SD
 			Quiting(QuitRect);
 			PlayButtonEvent(StartRect);
 			BackToMenu(ArrowRect);
+			CharPosEvent();
 		}
 		if (SDL_MOUSEMOTION == eventImage.type)
 		{
@@ -191,6 +210,8 @@ int main(int argc, char* args[])
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(quit); 
 	SDL_FreeSurface(start);
+	SDL_FreeSurface(Arrow);
+	SDL_FreeSurface(character);
 
 	SDL_Rect BackRect;
 	BackRect.w = SCREEN_WIDTH;
@@ -222,6 +243,12 @@ int main(int argc, char* args[])
 	ArrowRect.x = 0;
 	ArrowRect.y = 0 - SCREEN_HEIGHT;
 
+	SDL_Rect CharRect;
+	CharRect.w = 50;
+	CharRect.h = 100;
+	CharRect.x = 500;
+	CharRect.y = -100;
+
 	SDL_Rect blackCloset1rect;
 	blackCloset1rect.w = SCREEN_WIDTH / 2;
 	blackCloset1rect.h = SCREEN_HEIGHT;
@@ -231,6 +258,7 @@ int main(int argc, char* args[])
 	const int StartY = StartRect.y;
 	const int QuitY = QuitRect.y;
 	const int ArrowY = ArrowRect.y;
+	const int CharY = CharRect.y;
 
 	while (playing == true)
 	{
@@ -244,6 +272,7 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, QuitTexture, NULL, &QuitRect);
 		SDL_RenderCopy(renderer, StartTexture, NULL, &StartRect);
 		SDL_RenderCopy(renderer, ArrowTexture, NULL, &ArrowRect);
+		SDL_RenderCopy(renderer, characterTexture, NULL, &CharRect);
 		SDL_RenderCopy(renderer, blackCloset1Texture, NULL, &blackCloset1rect);
 		SDL_RenderPresent(renderer);
 		if (OnMap == true)
@@ -251,15 +280,40 @@ int main(int argc, char* args[])
 			StartRect.y = StartY - SCREEN_HEIGHT;
 			QuitRect.y = QuitY - SCREEN_HEIGHT;
 			ArrowRect.y = ArrowY + SCREEN_HEIGHT;
+			CharRect.y = CharY + SCREEN_HEIGHT;
 		}
 		else
 		{
 			QuitRect.y = QuitY + SCREEN_HEIGHT;
 			StartRect.y = StartY + SCREEN_HEIGHT;
 			ArrowRect.y = ArrowY - SCREEN_HEIGHT;
+			CharRect.y = CharY - SCREEN_HEIGHT;
 		}
-		std::cout << StartRect.y;
-		SDL_Delay(10);
+
+		if (CharRect.y + CharFixY > CharFlagY)
+		{
+			CharFixY = CharFixY - 2;
+		}
+		else if (CharRect.y + CharFixY < CharFlagY)
+		{
+			CharFixY = CharFixY + 2;
+		}
+
+		CharRect.y = CharRect.y + CharFixY;
+
+		if (CharRect.x > CharFlagX)
+		{
+			CharRect.x-= 2;
+		}
+		else if (CharRect.x != CharFlagX)
+		{
+			CharRect.x += 1;
+		}
+		else if(CharRect.x < CharFlagX)
+		{
+			CharRect.x+= 2;
+		}
+		SDL_Delay(2);
 	}
 	return 0;
 }
