@@ -20,8 +20,6 @@ SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED
 
 SDL_Surface* background = SDL_LoadBMP("./Graphics/background.bmp");
 
-SDL_Surface* cursor = SDL_LoadBMP("");
-
 SDL_Surface* quit = SDL_LoadBMP("./Graphics/ButtonQuit.bmp");
 
 SDL_Surface* start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
@@ -31,8 +29,6 @@ SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, backgrou
 SDL_Texture* QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 
 SDL_Texture* StartTexture = SDL_CreateTextureFromSurface(renderer, start);
-
-SDL_Texture* CursorTexture = SDL_CreateTextureFromSurface(renderer, cursor);
 
 void Quiting(SDL_Rect QuitRect)
 {
@@ -45,16 +41,7 @@ void Quiting(SDL_Rect QuitRect)
 	}
 }
 
-void CustomCursor(SDL_Rect MouseRect)
-{
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-	MouseRect.x = x;
-	MouseRect.y = y;
-	return void();
-}
-
-void QuitButtonOnHoverCheck(SDL_Rect MouseRect, SDL_Rect QuitRect, bool QuitMin)
+void QuitButtonOnHoverCheck(SDL_Rect QuitRect, bool QuitMin)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -124,19 +111,18 @@ void PlayButtonEvent(SDL_Rect StartRect)
 	SDL_GetMouseState(&x, &y);
 	if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
 	{
-		playing = false;
-		return void(StartRect);
+		background = SDL_LoadBMP("./Graphics/mode_1.bmp");
+		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 	}
 }
 
-void ButtonEvents(SDL_Rect MouseRect, SDL_Rect QuitRect, SDL_Rect StartRect, bool QuitMin, bool StartMin)
+void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, bool QuitMin, bool StartMin)
 {
 	if (SDL_PollEvent(&eventImage))
 	{
 		if (SDL_MOUSEMOTION == eventImage.type)
 		{
-			CustomCursor(MouseRect);
-			QuitButtonOnHoverCheck(MouseRect, QuitRect, QuitMin);
+			QuitButtonOnHoverCheck(QuitRect, QuitMin);
 			PlayButtonOnHoverCheck(StartRect, StartMin);
 		}
 		if (SDL_MOUSEBUTTONUP == eventImage.type)
@@ -172,7 +158,6 @@ int main(int argc, char* args[])
 {
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(quit);
-	SDL_FreeSurface(cursor);
 	SDL_FreeSurface(start);
 
 	SDL_Rect BackRect;
@@ -202,7 +187,7 @@ int main(int argc, char* args[])
 	SDL_SetWindowFullscreen(window, SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN ? 0 : SDL_WINDOW_FULLSCREEN);
 	while (playing == true)
 	{
-		ButtonEvents(MouseRect, QuitRect, StartRect, QuitMin, StartMin);
+		ButtonEvents(QuitRect, StartRect, BackRect, QuitMin, StartMin);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0xff, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -210,7 +195,6 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, BackgroundTexture, NULL, &BackRect);
 		SDL_RenderCopy(renderer, QuitTexture, NULL, &QuitRect);
 		SDL_RenderCopy(renderer, StartTexture, NULL, &StartRect);
-		SDL_RenderCopy(renderer, CursorTexture, NULL, &MouseRect);
 		SDL_RenderPresent(renderer);
 	}
 	return 0;
