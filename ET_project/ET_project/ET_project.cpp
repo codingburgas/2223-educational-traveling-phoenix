@@ -20,7 +20,7 @@ int CharFixY = 0;
 
 SDL_Event eventImage;
 
-SDL_Window* window = SDL_CreateWindow("Hello SDL WORLD", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+SDL_Window* window = SDL_CreateWindow("Europe trip", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
@@ -277,6 +277,7 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, characterTexture, NULL, &CharRect);
 		SDL_RenderCopy(renderer, blackCloset1Texture, NULL, &blackCloset1rect);
 		SDL_RenderPresent(renderer);
+
 		if (OnMap == true)
 		{	
 			StartRect.y = StartY - SCREEN_HEIGHT;
@@ -305,15 +306,15 @@ int main(int argc, char* args[])
 
 		if (CharRect.x > CharFlagX)
 		{
-			CharRect.x-= 2;
+			CharRect.x -= 2;
 		}
 		else if (CharRect.x != CharFlagX)
 		{
 			CharRect.x += 1;
 		}
-		else if(CharRect.x < CharFlagX)
+		else if (CharRect.x < CharFlagX)
 		{
-			CharRect.x+= 2;
+			CharRect.x += 2;
 		}
 		SDL_Delay(2);
 	}
