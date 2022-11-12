@@ -169,7 +169,7 @@ void BackToMenu(SDL_Rect ArrowRect)
 	}
 }
 
-void OnBulgaria()
+void HoveredCountry( )
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -181,6 +181,21 @@ void OnBulgaria()
 	else if (x >= 619 and x <= 840 and y <= 830 and y >= 701 and OnMap == 1)
 	{
 		background = SDL_LoadBMP("./Graphics/mode_3.bmp");
+		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+	}
+	else if (x >= 584 and x <= 701 and y <= 658 and y >= 579 and OnMap == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/mode_4.bmp");
+		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+	}
+	else if (x >= 401 and x <= 513 and y <= 639 and y >= 545 and OnMap == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/mode_5.bmp");
+		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+	}
+	else if (x >= 487 and x <= 586 and y <= 1016 and y >= 667 and OnMap == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/mode_6.bmp");
 		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 	}
 	else
@@ -209,7 +224,7 @@ void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SD
 			QuitButtonOnHoverCheck(QuitRect);
 			PlayButtonOnHoverCheck(StartRect, StartMin);
 			ArrowButtonOnHoverCheck(ArrowRect);
-			OnBulgaria();
+			HoveredCountry();
 		}
 		if (SDL_MOUSEBUTTONDOWN == eventImage.type)
 		{
