@@ -169,6 +169,30 @@ void BackToMenu(SDL_Rect ArrowRect)
 	}
 }
 
+void OnBulgaria()
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (x >= 865 and x <= 1370 and y <= 801 and y >= 439 and OnMap == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/mode_2.bmp");
+		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+	}
+	else if (x >= 619 and x <= 840 and y <= 830 and y >= 701 and OnMap == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/mode_3.bmp");
+		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+	}
+	else
+	{
+		if (OnMap == 1)
+		{
+			background = SDL_LoadBMP("./Graphics/mode_1.bmp");
+			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		}
+	}
+}
+
 void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SDL_Rect blackCloset1rect, SDL_Rect ArrowRect, bool QuitMin, bool StartMin)
 {
 	if (SDL_PollEvent(&eventImage))
@@ -185,6 +209,7 @@ void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SD
 			QuitButtonOnHoverCheck(QuitRect);
 			PlayButtonOnHoverCheck(StartRect, StartMin);
 			ArrowButtonOnHoverCheck(ArrowRect);
+			OnBulgaria();
 		}
 		if (SDL_MOUSEBUTTONDOWN == eventImage.type)
 		{
