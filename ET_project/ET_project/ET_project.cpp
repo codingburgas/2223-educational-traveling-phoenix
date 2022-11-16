@@ -4,7 +4,7 @@
 #include <SDL_ttf.h>
 #include <string>
 #include <iostream>
-#include <string>
+#include <string> 
 
 using namespace std;
 
@@ -36,9 +36,9 @@ SDL_Surface* start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
 
 SDL_Surface* Arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
 
-SDL_Surface* blackCloset1 = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
-
 SDL_Surface* character = SDL_LoadBMP("./Graphics/carOne.bmp");
+
+SDL_Surface* visit = SDL_LoadBMP("./Graphics/EmptyVisit.bmp");
 
 SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
@@ -50,7 +50,7 @@ SDL_Texture* StartTexture = SDL_CreateTextureFromSurface(renderer, start);
 
 SDL_Texture* ArrowTexture = SDL_CreateTextureFromSurface(renderer, Arrow);  
 
-SDL_Texture* blackCloset1Texture = SDL_CreateTextureFromSurface(renderer, blackCloset1);
+SDL_Texture* visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
 
 TTF_Font* MoneyFont = TTF_OpenFont("./Graphics/8bitOperatorPlus-Regular.ttf", 10);
 
@@ -59,6 +59,34 @@ SDL_Color Green = { 255,255,255 };
 SDL_Surface* surfaceMoney = TTF_RenderText_Solid(MoneyFont, "Hello World", Green);
 
 SDL_Texture* MoneyTexture = SDL_CreateTextureFromSurface(renderer, surfaceMoney);
+
+bool CarOnCountry(SDL_Rect CharRect)
+{
+	if (CharRect.x >= 865 and CharRect.x <= 1370 and CharRect.y <= 801 + 300 and CharRect.y >= 439 + 300)
+	{
+		return 1;
+	}
+	else if (CharRect.x >= 619 and CharRect.x <= 840 and CharRect.y <= 830 + 300 and CharRect.y >= 701 + 300 )
+	{
+		return 1;
+	}
+	else if (CharRect.x >= 584 and CharRect.x <= 701 and CharRect.y <= 658 + 300 and CharRect.y >= 579 + 300 )
+	{
+		return 1;
+	}
+	else if (CharRect.x >= 401 and CharRect.x <= 513 and CharRect.y <= 639 + 300 and CharRect.y >= 545 + 300 )
+	{
+		return 1;
+	}
+	else if (CharRect.x >= 487 and CharRect.x <= 586 and CharRect.y <= 1016 + 300 and CharRect.y >= 667 + 300 )
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
 
 void Quiting(SDL_Rect QuitRect)
 {
@@ -110,14 +138,14 @@ void PlayButtonOnHoverCheck(SDL_Rect StartRect, bool StartMin)
 	{
 		start = SDL_LoadBMP("./Graphics/ButtonPlayHovered.bmp");
 		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
-		
+
 		return void();
 	}
 	else
 	{
 		start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
 		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
-		
+
 		if (StartMin == true)
 		{
 			StartRect.w = StartRect.w - 20;
@@ -191,62 +219,74 @@ void BackToMenu(SDL_Rect ArrowRect)
 	}
 }
 
-void HoveredCountry( )
+void HoveredCountry()
 {
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-	if (x >= 865 and x <= 1370 and y <= 801 and y >= 439 and OnMap == 1)
-	{
-		background = SDL_LoadBMP("./Graphics/mode_2.bmp");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
-	}
-	else if (x >= 619 and x <= 840 and y <= 830 and y >= 701 and OnMap == 1)
-	{
-		background = SDL_LoadBMP("./Graphics/mode_3.bmp");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
-	}
-	else if (x >= 584 and x <= 701 and y <= 658 and y >= 579 and OnMap == 1)
-	{
-		background = SDL_LoadBMP("./Graphics/mode_4.bmp");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
-	}
-	else if (x >= 401 and x <= 513 and y <= 639 and y >= 545 and OnMap == 1)
-	{
-		background = SDL_LoadBMP("./Graphics/mode_5.bmp");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
-	}
-	else if (x >= 487 and x <= 586 and y <= 1016 and y >= 667 and OnMap == 1)
-	{
-		background = SDL_LoadBMP("./Graphics/mode_6.bmp");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
-	}
-	else
-	{
-		if (OnMap == 1)
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		if (x >= 865 and x <= 1370 and y <= 801 and y >= 439 and OnMap == 1)
 		{
-			background = SDL_LoadBMP("./Graphics/mode_1.bmp");
+			background = SDL_LoadBMP("./Graphics/mode_2.bmp");
 			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
-	}
+		else if (x >= 619 and x <= 840 and y <= 830 and y >= 701 and OnMap == 1)
+		{
+			background = SDL_LoadBMP("./Graphics/mode_3.bmp");
+			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		}
+		else if (x >= 584 and x <= 701 and y <= 658 and y >= 579 and OnMap == 1)
+		{
+			background = SDL_LoadBMP("./Graphics/mode_4.bmp");
+			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		}
+		else if (x >= 401 and x <= 513 and y <= 639 and y >= 545 and OnMap == 1)
+		{
+			background = SDL_LoadBMP("./Graphics/mode_5.bmp");
+			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		}
+		else if (x >= 487 and x <= 586 and y <= 1016 and y >= 667 and OnMap == 1)
+		{
+			background = SDL_LoadBMP("./Graphics/mode_6.bmp");
+			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		}
+		else
+		{
+			if (OnMap == 1)
+			{
+				background = SDL_LoadBMP("./Graphics/mode_1.bmp");
+				BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+			}
+		}
 }
 
-void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SDL_Rect blackCloset1rect, SDL_Rect ArrowRect, SDL_Rect charRect, bool QuitMin, bool StartMin)
+void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SDL_Rect ArrowRect, SDL_Rect charRect, bool QuitMin, bool StartMin)
 {
 	if (SDL_PollEvent(&eventImage))
 	{
 		if (SDL_MOUSEBUTTONUP == eventImage.type)
 		{
-			Quiting(QuitRect);
-			PlayButtonEvent(StartRect);
-			BackToMenu(ArrowRect);
-			CharPosEvent(charRect);
+			if (OnMap == 1)
+			{
+				BackToMenu(ArrowRect);
+				CharPosEvent(charRect);
+			}
+			else
+			{
+				PlayButtonEvent(StartRect);
+				Quiting(QuitRect);
+			}  	
 		}
 		if (SDL_MOUSEMOTION == eventImage.type)
 		{
-			QuitButtonOnHoverCheck(QuitRect);
-			PlayButtonOnHoverCheck(StartRect, StartMin);
-			ArrowButtonOnHoverCheck(ArrowRect);
-			HoveredCountry();
+			if (OnMap == 1)
+			{
+				ArrowButtonOnHoverCheck(ArrowRect);
+				HoveredCountry();
+			}
+			else
+			{
+				QuitButtonOnHoverCheck(QuitRect);
+				PlayButtonOnHoverCheck(StartRect, StartMin);
+			}
 		}
 		if (SDL_MOUSEBUTTONDOWN == eventImage.type)
 		{
@@ -269,6 +309,33 @@ void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SD
 	}
 
 	
+}
+
+void VisitButton(SDL_Rect CharRect, SDL_Rect VisitRect)
+{
+	if (OnMap == 1)
+	{
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		if (CarOnCountry(CharRect) == true)
+		{
+			if (x >= VisitRect.x and x <= VisitRect.w + VisitRect.x and y >= VisitRect.y and y <= VisitRect.h + VisitRect.y)
+			{
+				visit = SDL_LoadBMP("./Graphics/HoveredVisit.bmp");
+				visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
+			}
+			else
+			{
+				visit = SDL_LoadBMP("./Graphics/NotHoveredVisit.bmp");
+				visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
+			}
+		}
+		else
+		{
+			visit = SDL_LoadBMP("./Graphics/EmptyVisit.bmp");
+			visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
+		}
+	}
 }
 
 int main(int argc, char* args[])
@@ -319,22 +386,20 @@ int main(int argc, char* args[])
 	MoneyRect.w = 100;
 	MoneyRect.h = 100;
 
-	SDL_Rect blackCloset1rect;
-	blackCloset1rect.w = SCREEN_WIDTH / 2;
-	blackCloset1rect.h = SCREEN_HEIGHT;
-	blackCloset1rect.x = 0 - SCREEN_WIDTH / 2;
-	blackCloset1rect.y = 0;
-
+	SDL_Rect visitRect;
+	visitRect.x = SCREEN_WIDTH / 2 - QuitRect.w / 2;;
+	visitRect.y = -SCREEN_HEIGHT + 900  ;
+	visitRect.w = 215;
+	visitRect.h = 129;
 
 	const int StartY = StartRect.y;
 	const int QuitY = QuitRect.y;
 	const int ArrowY = ArrowRect.y;
 	const int CharY = CharRect.y;
+	const int VisitY = visitRect.y;
 
 	while (playing == true)
 	{
-		
-		ButtonEvents(QuitRect, StartRect, BackRect, blackCloset1rect, ArrowRect, CharRect, QuitMin, StartMin);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0xff, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -344,9 +409,11 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, StartTexture, NULL, &StartRect);
 		SDL_RenderCopy(renderer, ArrowTexture, NULL, &ArrowRect);
 		SDL_RenderCopy(renderer, characterTexture, NULL, &CharRect);	
-		SDL_RenderCopy(renderer, blackCloset1Texture, NULL, &blackCloset1rect);
+		SDL_RenderCopy(renderer, visitTexture, NULL, &visitRect);
 		SDL_RenderCopy(renderer, MoneyTexture, NULL, &MoneyRect);
 		SDL_RenderPresent(renderer);
+
+		
 
 		if (OnMap == true)
 		{	
@@ -354,6 +421,9 @@ int main(int argc, char* args[])
 			QuitRect.y = QuitY - SCREEN_HEIGHT;
 			ArrowRect.y = ArrowY + SCREEN_HEIGHT;
 			CharRect.y = CharY + SCREEN_HEIGHT;
+			visitRect.y = VisitY + SCREEN_HEIGHT;
+
+			VisitButton(CharRect, visitRect);
 		}
 		else
 		{
@@ -361,6 +431,7 @@ int main(int argc, char* args[])
 			StartRect.y = StartY + SCREEN_HEIGHT;
 			ArrowRect.y = ArrowY - SCREEN_HEIGHT;
 			CharRect.y = CharY - SCREEN_HEIGHT;
+			visitRect.y = VisitY - SCREEN_HEIGHT;
 		}
 
 		if (CharRect.y + CharFixY > CharFlagY)
@@ -384,13 +455,15 @@ int main(int argc, char* args[])
 		}
 		else if (CharRect.x != CharFlagX)
 		{
-			CharRect.x += 1;
+			CharRect.x += 1; 
 		}
 		else if (CharRect.x < CharFlagX)
 		{
 			CharRect.x += 2;
 		}
-		
+
+		ButtonEvents(QuitRect, StartRect, BackRect, ArrowRect, CharRect, QuitMin, StartMin);
+
 		SDL_Delay(5);
 	}
 	return 0;
