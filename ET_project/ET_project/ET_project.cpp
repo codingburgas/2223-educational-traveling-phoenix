@@ -1,8 +1,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
+#include <SDL_ttf.h>
 #include <string>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -17,6 +19,8 @@ bool OnMap = false;
 int CharFlagX;
 int CharFlagY;
 int CharFixY = 0;
+
+int money = 0;
 
 SDL_Event eventImage;
 
@@ -34,7 +38,7 @@ SDL_Surface* Arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
 
 SDL_Surface* blackCloset1 = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
 
-SDL_Surface* character = SDL_LoadBMP("./Graphics/character.bmp");
+SDL_Surface* character = SDL_LoadBMP("./Graphics/carOne.bmp");
 
 SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
@@ -44,9 +48,17 @@ SDL_Texture* QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 
 SDL_Texture* StartTexture = SDL_CreateTextureFromSurface(renderer, start);
 
-SDL_Texture* ArrowTexture = SDL_CreateTextureFromSurface(renderer, Arrow);
+SDL_Texture* ArrowTexture = SDL_CreateTextureFromSurface(renderer, Arrow);  
 
 SDL_Texture* blackCloset1Texture = SDL_CreateTextureFromSurface(renderer, blackCloset1);
+
+TTF_Font* MoneyFont = TTF_OpenFont("./Graphics/8bitOperatorPlus-Regular.ttf", 10);
+
+SDL_Color Green = { 255,255,255 }; 
+
+SDL_Surface* surfaceMoney = TTF_RenderText_Solid(MoneyFont, "Hello World", Green);
+
+SDL_Texture* MoneyTexture = SDL_CreateTextureFromSurface(renderer, surfaceMoney);
 
 void Quiting(SDL_Rect QuitRect)
 {
@@ -145,7 +157,7 @@ void PlayButtonEvent(SDL_Rect StartRect)
 	}
 }
 
-void CharPosEvent()
+void CharPosEvent(SDL_Rect CharRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -153,6 +165,16 @@ void CharPosEvent()
 	{
 		CharFlagX = x;
 		CharFlagY = y;
+		if (CharRect.x < x)
+		{
+			character = SDL_LoadBMP("./Graphics/carOne.bmp");
+			characterTexture = SDL_CreateTextureFromSurface(renderer, character);
+		}
+		else
+		{
+			character = SDL_LoadBMP("./Graphics/carTwo.bmp");
+			characterTexture = SDL_CreateTextureFromSurface(renderer, character);
+		}
 	}
 }
 	
@@ -208,7 +230,7 @@ void HoveredCountry( )
 	}
 }
 
-void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SDL_Rect blackCloset1rect, SDL_Rect ArrowRect, bool QuitMin, bool StartMin)
+void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SDL_Rect blackCloset1rect, SDL_Rect ArrowRect, SDL_Rect charRect, bool QuitMin, bool StartMin)
 {
 	if (SDL_PollEvent(&eventImage))
 	{
@@ -217,7 +239,7 @@ void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SD
 			Quiting(QuitRect);
 			PlayButtonEvent(StartRect);
 			BackToMenu(ArrowRect);
-			CharPosEvent();
+			CharPosEvent(charRect);
 		}
 		if (SDL_MOUSEMOTION == eventImage.type)
 		{
@@ -245,16 +267,16 @@ void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SD
 			}
 		}
 	}
+
+	
 }
 
 int main(int argc, char* args[])
 {
-	SDL_FreeSurface(background);
-	SDL_FreeSurface(quit); 
-	SDL_FreeSurface(start);
-	SDL_FreeSurface(Arrow);
-	SDL_FreeSurface(character);
-
+	if (MoneyFont == nullptr)
+	{
+		cout << "CouldNotFind";
+	}
 	SDL_Rect BackRect;
 	BackRect.w = SCREEN_WIDTH;
 	BackRect.h = SCREEN_HEIGHT;
@@ -286,16 +308,23 @@ int main(int argc, char* args[])
 	ArrowRect.y = 0 - SCREEN_HEIGHT;
 
 	SDL_Rect CharRect;
-	CharRect.w = 50;
-	CharRect.h = 100;
+	CharRect.w = 155;
+	CharRect.h = 67;
 	CharRect.x = 500;
 	CharRect.y = -100;
+
+	SDL_Rect MoneyRect;
+	MoneyRect.x = 0;
+	MoneyRect.y = 0;
+	MoneyRect.w = 100;
+	MoneyRect.h = 100;
 
 	SDL_Rect blackCloset1rect;
 	blackCloset1rect.w = SCREEN_WIDTH / 2;
 	blackCloset1rect.h = SCREEN_HEIGHT;
 	blackCloset1rect.x = 0 - SCREEN_WIDTH / 2;
 	blackCloset1rect.y = 0;
+
 
 	const int StartY = StartRect.y;
 	const int QuitY = QuitRect.y;
@@ -305,7 +334,7 @@ int main(int argc, char* args[])
 	while (playing == true)
 	{
 		
-		ButtonEvents(QuitRect, StartRect, BackRect, blackCloset1rect, ArrowRect, QuitMin, StartMin);
+		ButtonEvents(QuitRect, StartRect, BackRect, blackCloset1rect, ArrowRect, CharRect, QuitMin, StartMin);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0xff, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -314,8 +343,9 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, QuitTexture, NULL, &QuitRect);
 		SDL_RenderCopy(renderer, StartTexture, NULL, &StartRect);
 		SDL_RenderCopy(renderer, ArrowTexture, NULL, &ArrowRect);
-		SDL_RenderCopy(renderer, characterTexture, NULL, &CharRect);
+		SDL_RenderCopy(renderer, characterTexture, NULL, &CharRect);	
 		SDL_RenderCopy(renderer, blackCloset1Texture, NULL, &blackCloset1rect);
+		SDL_RenderCopy(renderer, MoneyTexture, NULL, &MoneyRect);
 		SDL_RenderPresent(renderer);
 
 		if (OnMap == true)
@@ -337,6 +367,10 @@ int main(int argc, char* args[])
 		{
 			CharFixY = CharFixY - 2;
 		}
+		else if (CharRect.y != CharFlagY)
+		{
+			CharFixY += 1;
+		}
 		else if (CharRect.y + CharFixY < CharFlagY)
 		{
 			CharFixY = CharFixY + 2;
@@ -356,7 +390,8 @@ int main(int argc, char* args[])
 		{
 			CharRect.x += 2;
 		}
-		SDL_Delay(2);
+		
+		SDL_Delay(5);
 	}
 	return 0;
 }
