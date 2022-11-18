@@ -30,15 +30,15 @@ SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED
 
 SDL_Surface* background = SDL_LoadBMP("./Graphics/background.bmp");
 
-SDL_Surface* quit = SDL_LoadBMP("./Graphics/ButtonQuit.bmp");
+SDL_Surface* quit = SDL_LoadBMP("./Graphics/Buttons/ButtonQuit.bmp");
 
-SDL_Surface* start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
+SDL_Surface* start = SDL_LoadBMP("./Graphics/Buttons/ButtonPlay.bmp");
 
 SDL_Surface* Arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
 
 SDL_Surface* character = SDL_LoadBMP("./Graphics/carOne.bmp");
 
-SDL_Surface* visit = SDL_LoadBMP("./Graphics/EmptyVisit.bmp");
+SDL_Surface* visit = SDL_LoadBMP("./Graphics/MapModes/EnteredVisit.bmp");
 
 SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
@@ -62,24 +62,33 @@ SDL_Texture* MoneyTexture = SDL_CreateTextureFromSurface(renderer, surfaceMoney)
 
 bool CarOnCountry(SDL_Rect CharRect)
 {
-	if (CharRect.x >= 865 and CharRect.x <= 1370 and CharRect.y <= 801 + 300 and CharRect.y >= 439 + 300)
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	cout << "Ch" << CharRect.x << " " << CharFixY + 980 << endl;
+	cout << "Mo" << x << " " << y << endl;
+	if (CharRect.x >= 865 and CharRect.x <= 1370 and CharFixY + 980 <= 801 and CharFixY + 980 >= 439)
 	{
+		cout << "DONE";
 		return 1;
 	}
-	else if (CharRect.x >= 619 and CharRect.x <= 840 and CharRect.y <= 830 + 300 and CharRect.y >= 701 + 300 )
+	else if (CharRect.x >= 619 and CharRect.x <= 840 and CharFixY + 980 <= 830 and CharFixY >= 701)
 	{
+		cout << "DONE";
 		return 1;
 	}
-	else if (CharRect.x >= 584 and CharRect.x <= 701 and CharRect.y <= 658 + 300 and CharRect.y >= 579 + 300 )
+	else if (CharRect.x >= 584 and CharRect.x <= 701 and CharFixY + 980 <= 658 and CharFixY >= 579)
 	{
+		cout << "DONE";
+		return 1; 
+	}
+	else if (CharRect.x >= 401 and CharRect.x  <= 513 and CharFixY + 980 <= 639 and CharFixY  >= 545)
+	{
+		cout << "DONE";
 		return 1;
 	}
-	else if (CharRect.x >= 401 and CharRect.x <= 513 and CharRect.y <= 639 + 300 and CharRect.y >= 545 + 300 )
+	else if (CharRect.x >= 487 and CharRect.x  <= 586 and CharFixY + 980 <= 1016 and CharFixY >= 667)
 	{
-		return 1;
-	}
-	else if (CharRect.x >= 487 and CharRect.x <= 586 and CharRect.y <= 1016 + 300 and CharRect.y >= 667 + 300 )
-	{
+		cout << "DONE";
 		return 1;
 	}
 	else
@@ -104,12 +113,12 @@ void QuitButtonOnHoverCheck(SDL_Rect QuitRect)
 	SDL_GetMouseState(&x, &y);
 	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
 	{
-		quit = SDL_LoadBMP("./Graphics/ButtonQuitHovered.bmp");
+		quit = SDL_LoadBMP("./Graphics/Buttons/ButtonQuitHovered.bmp");
 		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 	}
 	else
 	{
-		quit = SDL_LoadBMP("./Graphics/ButtonQuit.bmp");
+		quit = SDL_LoadBMP("./Graphics/Buttons/ButtonQuit.bmp");
 		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 	}
 }
@@ -136,14 +145,14 @@ void PlayButtonOnHoverCheck(SDL_Rect StartRect, bool StartMin)
 	SDL_GetMouseState(&x, &y);
 	if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
 	{
-		start = SDL_LoadBMP("./Graphics/ButtonPlayHovered.bmp");
+		start = SDL_LoadBMP("./Graphics/Buttons/ButtonPlayHovered.bmp");
 		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
 
 		return void();
 	}
 	else
 	{
-		start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
+		start = SDL_LoadBMP("./Graphics/Buttons/ButtonPlay.bmp");
 		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
 
 		if (StartMin == true)
@@ -180,7 +189,7 @@ void PlayButtonEvent(SDL_Rect StartRect)
 	{
 		
 		OnMap = true;
-		background = SDL_LoadBMP("./Graphics/mode_1.bmp");
+		background = SDL_LoadBMP("./Graphics/MapModes/Mode1.bmp");
 		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 	}
 }
@@ -225,34 +234,34 @@ void HoveredCountry()
 		SDL_GetMouseState(&x, &y);
 		if (x >= 865 and x <= 1370 and y <= 801 and y >= 439 and OnMap == 1)
 		{
-			background = SDL_LoadBMP("./Graphics/mode_2.bmp");
+			background = SDL_LoadBMP("./Graphics/MapModes/Mode2.bmp");
 			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
 		else if (x >= 619 and x <= 840 and y <= 830 and y >= 701 and OnMap == 1)
 		{
-			background = SDL_LoadBMP("./Graphics/mode_3.bmp");
+			background = SDL_LoadBMP("./Graphics/MapModes/Mode3.bmp");
 			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
 		else if (x >= 584 and x <= 701 and y <= 658 and y >= 579 and OnMap == 1)
 		{
-			background = SDL_LoadBMP("./Graphics/mode_4.bmp");
+			background = SDL_LoadBMP("./Graphics/MapModes/Mode4.bmp");
 			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
 		else if (x >= 401 and x <= 513 and y <= 639 and y >= 545 and OnMap == 1)
 		{
-			background = SDL_LoadBMP("./Graphics/mode_5.bmp");
+			background = SDL_LoadBMP("./Graphics/MapModes/Mode5.bmp");
 			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
 		else if (x >= 487 and x <= 586 and y <= 1016 and y >= 667 and OnMap == 1)
 		{
-			background = SDL_LoadBMP("./Graphics/mode_6.bmp");
+			background = SDL_LoadBMP("./Graphics/MapModes/Mode6.bmp");
 			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
 		else
 		{
 			if (OnMap == 1)
 			{
-				background = SDL_LoadBMP("./Graphics/mode_1.bmp");
+				background = SDL_LoadBMP("./Graphics/MapModes/Mode1.bmp");
 				BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 			}
 		}
@@ -321,18 +330,18 @@ void VisitButton(SDL_Rect CharRect, SDL_Rect VisitRect)
 		{
 			if (x >= VisitRect.x and x <= VisitRect.w + VisitRect.x and y >= VisitRect.y and y <= VisitRect.h + VisitRect.y)
 			{
-				visit = SDL_LoadBMP("./Graphics/HoveredVisit.bmp");
+				visit = SDL_LoadBMP("./Graphics/Buttons/NormalModeVisit.bmp");
 				visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
 			}
 			else
 			{
-				visit = SDL_LoadBMP("./Graphics/NotHoveredVisit.bmp");
+				visit = SDL_LoadBMP("./Graphics/Buttons/ProcessVisit.bmp");
 				visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
 			}
 		}
 		else
 		{
-			visit = SDL_LoadBMP("./Graphics/EmptyVisit.bmp");
+			visit = SDL_LoadBMP("./Graphics/Buttons/EnteredVisit.bmp");
 			visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
 		}
 	}
