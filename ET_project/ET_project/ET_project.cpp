@@ -1,7 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
-#include <SDL_ttf.h>
 #include <string>
 #include <iostream>
 #include <string> 
@@ -52,43 +51,26 @@ SDL_Texture* ArrowTexture = SDL_CreateTextureFromSurface(renderer, Arrow);
 
 SDL_Texture* visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
 
-TTF_Font* MoneyFont = TTF_OpenFont("./Graphics/8bitOperatorPlus-Regular.ttf", 10);
-
-SDL_Color Green = { 255,255,255 }; 
-
-SDL_Surface* surfaceMoney = TTF_RenderText_Solid(MoneyFont, "Hello World", Green);
-
-SDL_Texture* MoneyTexture = SDL_CreateTextureFromSurface(renderer, surfaceMoney);
-
 bool CarOnCountry(SDL_Rect CharRect)
 {
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-	cout << "Ch" << CharRect.x << " " << CharFixY + 980 << endl;
-	cout << "Mo" << x << " " << y << endl;
 	if (CharRect.x >= 865 and CharRect.x <= 1370 and CharFixY + 980 <= 801 and CharFixY + 980 >= 439)
 	{
-		cout << "DONE";
 		return 1;
 	}
-	else if (CharRect.x >= 619 and CharRect.x <= 840 and CharFixY + 980 <= 830 and CharFixY >= 701)
+	else if (CharRect.x >= 619 and CharRect.x <= 840 and CharFixY + 980 <= 830 and CharFixY + 980 >= 701)
 	{
-		cout << "DONE";
 		return 1;
 	}
-	else if (CharRect.x >= 584 and CharRect.x <= 701 and CharFixY + 980 <= 658 and CharFixY >= 579)
+	else if (CharRect.x >= 584 and CharRect.x <= 701 and CharFixY + 980 <= 658 and CharFixY + 980 >= 579)
 	{
-		cout << "DONE";
 		return 1; 
 	}
-	else if (CharRect.x >= 401 and CharRect.x  <= 513 and CharFixY + 980 <= 639 and CharFixY  >= 545)
+	else if (CharRect.x >= 401 and CharRect.x  <= 513 and CharFixY + 980 <= 639 and CharFixY + 980 >= 545)
 	{
-		cout << "DONE";
 		return 1;
 	}
-	else if (CharRect.x >= 487 and CharRect.x  <= 586 and CharFixY + 980 <= 1016 and CharFixY >= 667)
+	else if (CharRect.x >= 487 and CharRect.x  <= 586 and CharFixY + 980 <= 1016 and CharFixY + 980 >= 667)
 	{
-		cout << "DONE";
 		return 1;
 	}
 	else
@@ -349,10 +331,6 @@ void VisitButton(SDL_Rect CharRect, SDL_Rect VisitRect)
 
 int main(int argc, char* args[])
 {
-	if (MoneyFont == nullptr)
-	{
-		cout << "CouldNotFind";
-	}
 	SDL_Rect BackRect;
 	BackRect.w = SCREEN_WIDTH;
 	BackRect.h = SCREEN_HEIGHT;
@@ -419,7 +397,6 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, ArrowTexture, NULL, &ArrowRect);
 		SDL_RenderCopy(renderer, characterTexture, NULL, &CharRect);	
 		SDL_RenderCopy(renderer, visitTexture, NULL, &visitRect);
-		SDL_RenderCopy(renderer, MoneyTexture, NULL, &MoneyRect);
 		SDL_RenderPresent(renderer);
 
 		
