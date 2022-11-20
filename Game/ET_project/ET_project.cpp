@@ -15,12 +15,14 @@ bool startMin = false;
 bool playing = true;
 bool onMap = false;
 bool onQuestion = false;
+bool ansTrigger = false;
 
 int charFlagX;
 int charFlagY;
 int charFixY = 0;
+int ansCountown = 0;
 
-int money = 0;
+int question = 1;
 
 SDL_Event eventImage; 
 
@@ -40,6 +42,14 @@ SDL_Surface* character = SDL_LoadBMP("./Graphics/carOne.bmp");
 
 SDL_Surface* visit = SDL_LoadBMP("./Graphics/MapModes/EnteredVisit.bmp");
 
+SDL_Surface* leftAns = SDL_LoadBMP("./Graphics/Buttons/ButtonQuit.bmp");
+
+SDL_Surface* rightAns = SDL_LoadBMP("./Graphics/Buttons/ButtonQuit.bmp");
+
+SDL_Surface* middleAns = SDL_LoadBMP("./Graphics/Buttons/ButtonQuit.bmp");
+
+SDL_Surface* correctAns = nullptr; 
+
 SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
 SDL_Texture* characterTexture = SDL_CreateTextureFromSurface(renderer, character);
@@ -51,6 +61,14 @@ SDL_Texture* startTexture = SDL_CreateTextureFromSurface(renderer, start);
 SDL_Texture* arrowTexture = SDL_CreateTextureFromSurface(renderer, arrow);  
 
 SDL_Texture* visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
+
+SDL_Texture* leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+SDL_Texture* rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+SDL_Texture* middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+SDL_Texture* correctAnsTexture = SDL_CreateTextureFromSurface(renderer, correctAns);
 
 int carOnCountry(SDL_Rect CharRect)
 {
@@ -222,16 +240,165 @@ void backToMap(SDL_Rect arrowRect)
 	}
 }
 
+void showAns(bool ansCheck)
+{
+	if (ansCheck == 1)
+	{
+		correctAns = SDL_LoadBMP("./Graphics/true.bmp");
+		correctAnsTexture = SDL_CreateTextureFromSurface(renderer, correctAns);
+		ansTrigger = true;
+	}
+	if (ansCheck == 0)
+	{
+		correctAns = SDL_LoadBMP("./Graphics/false.bmp");
+		correctAnsTexture = SDL_CreateTextureFromSurface(renderer, correctAns);
+		ansTrigger = true;
+	}
+}
+
+void exerciseCheck()
+{
+	if (question == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Questions/questionOneBulgaria.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionOneFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionOneFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionOneTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 2)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Questions/questionTwoBulgaria.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionTwoFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionTwoFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionTwoTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 3)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Questions/questionThreeBulgaria.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionThreeFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionThreeFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/History/Buttons/questionThreeTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 4)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Questions/questionFourBulgaria.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionFourFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionFourTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionFourFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 5)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Questions/questionFiveBulgaria.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionFiveFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionFiveFalse.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionFiveTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 6)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Questions/questionSixBulgaria.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionSixTrue.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionSixFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionSixFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else
+	{
+		question = 1;
+	}
+}
+
 void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y and carOnCountry(charRect) != 0)
+	if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y and carOnCountry(charRect) == 1)
 	{
 		onMap = false;
 		onQuestion = true;
-		background = SDL_LoadBMP("./Graphics/");
-		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		exerciseCheck();
+	}
+}
+
+void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3 )
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	if (x >= questionButton1.x and x <= questionButton1.w + questionButton1.x and y >= questionButton1.y and y <= questionButton1.h + questionButton1.y)
+	{
+		if (question == 1 or question == 2 or question == 3 or question == 4 or question == 5)
+		{
+			showAns(0);
+		}
+		else
+		{
+			showAns(1);
+		}
+		question++;
+	}
+	else if (x >= questionButton2.x and x <= questionButton2.w + questionButton2.x and y >= questionButton2.y and y <= questionButton2.h + questionButton2.y)
+	{
+		if (question == 3 or question == 5 or question == 6)
+		{
+			showAns(0);
+		}
+		else
+		{
+			showAns(1);
+		}
+		question++;
+	}
+	else if (x >= questionButton3.x and x <= questionButton3.w + questionButton3.x and y >= questionButton3.y and y <= questionButton3.h + questionButton3.y)
+	{
+		if (question == 6 or question == 4 or question == 2)
+		{
+			showAns(0);
+		}
+		else
+		{
+			showAns(1);
+		}
+		question++;
 	}
 }
 
@@ -274,7 +441,7 @@ void hoveredCountry()
 		}
 }
 
-void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, bool quitMin, bool startMin)
+void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3, bool quitMin, bool startMin)
 {
 	if (SDL_PollEvent(&eventImage))
 	{
@@ -291,6 +458,8 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 				if (onQuestion == true)
 				{
 					backToMap(arrowRect);
+					questionsButtonsUp(questionButton1, questionButton2, questionButton3);
+					exerciseCheck();
 				}
 				playButtonEvent(startRect);
 				quiting(quitRect);
@@ -298,7 +467,7 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 		}
 		if (SDL_MOUSEMOTION == eventImage.type)
 		{
-			if (onMap == 1 and onQuestion == false)
+			if (onMap == true and onQuestion == false)
 			{
 				arrowButtonOnHoverCheck(arrowRect);
 				hoveredCountry();
@@ -378,12 +547,6 @@ int main(int argc, char* args[])
 	quitRect.x = SCREEN_WIDTH / 2 - quitRect.w / 2;
 	quitRect.y = SCREEN_HEIGHT - SCREEN_HEIGHT / 2 + 200 - SCREEN_HEIGHT;
 
-	SDL_Rect mouseRect;
-	mouseRect.x = 0;
-	mouseRect.y = 0;
-	mouseRect.w = 50;
-	mouseRect.h = 50;
-
 	SDL_Rect startRect;
 	startRect.w = 215;
 	startRect.h = 129;
@@ -402,23 +565,42 @@ int main(int argc, char* args[])
 	charRect.x = 500;
 	charRect.y = -100;
 
-	SDL_Rect moneyRect;
-	moneyRect.x = 0;
-	moneyRect.y = 0;
-	moneyRect.w = 100;
-	moneyRect.h = 100;
-
 	SDL_Rect visitRect;
-	visitRect.x = SCREEN_WIDTH / 2 - quitRect.w / 2;;
+	visitRect.x = SCREEN_WIDTH / 2 - quitRect.w / 2;
 	visitRect.y = -SCREEN_HEIGHT + 900  ;
 	visitRect.w = 215;
 	visitRect.h = 129;
+
+	SDL_Rect leftAnsRect;
+	leftAnsRect.x = SCREEN_WIDTH / 2 - 500 - quitRect.w / 2;
+	leftAnsRect.y = SCREEN_HEIGHT / 2 + SCREEN_HEIGHT;
+	leftAnsRect.w = 215;
+	leftAnsRect.h = 129;
+
+	SDL_Rect rightAnsRect;
+	rightAnsRect.x = SCREEN_WIDTH / 2 + 500 - quitRect.w / 2;
+	rightAnsRect.y = SCREEN_HEIGHT / 2 + SCREEN_HEIGHT;
+	rightAnsRect.w = 215;
+	rightAnsRect.h = 129;
+
+	SDL_Rect middleAnsRect;
+	middleAnsRect.x = SCREEN_WIDTH / 2 - quitRect.w / 2;
+	middleAnsRect.y = SCREEN_HEIGHT / 2 + SCREEN_HEIGHT;
+	middleAnsRect.w = 215;
+	middleAnsRect.h = 129;
+
+	SDL_Rect ansRect;
+	ansRect.x = 0;
+	ansRect.y = 0;
+	ansRect.w = SCREEN_WIDTH;
+	ansRect.h = SCREEN_HEIGHT;
 
 	const int StartY = startRect.y;
 	const int QuitY = quitRect.y;
 	const int ArrowY = arrowRect.y;
 	const int CharY = charRect.y;
 	const int VisitY = visitRect.y;
+	const int answersY = middleAnsRect.y;
 
 	while (playing == true)
 	{
@@ -431,11 +613,14 @@ int main(int argc, char* args[])
 		SDL_RenderCopy(renderer, arrowTexture, NULL, &arrowRect);
 		SDL_RenderCopy(renderer, characterTexture, NULL, &charRect);	
 		SDL_RenderCopy(renderer, visitTexture, NULL, &visitRect);
+		SDL_RenderCopy(renderer, leftAnsTexture, NULL, &leftAnsRect);
+		SDL_RenderCopy(renderer, rightAnsTexture, NULL, &rightAnsRect);
+		SDL_RenderCopy(renderer, middleAnsTexture, NULL, &middleAnsRect);
+		SDL_RenderCopy(renderer, correctAnsTexture, NULL, &ansRect);
+		
 		SDL_RenderPresent(renderer);
-
 		
-		
-			if (onMap == true and onQuestion == false)
+			if (onMap == true)
 			{
 
 				startRect.y = StartY - SCREEN_HEIGHT;
@@ -443,9 +628,9 @@ int main(int argc, char* args[])
 				arrowRect.y = ArrowY + SCREEN_HEIGHT;
 				charRect.y = CharY + SCREEN_HEIGHT;
 				visitRect.y = VisitY + SCREEN_HEIGHT;
+				question = 1;
 
 				visitButton(charRect, visitRect);
-
 			}
 			else
 			{
@@ -456,13 +641,30 @@ int main(int argc, char* args[])
 					arrowRect.y = ArrowY - SCREEN_HEIGHT;
 					charRect.y = CharY - SCREEN_HEIGHT;
 					visitRect.y = VisitY - SCREEN_HEIGHT;
+					middleAnsRect.y = answersY + SCREEN_HEIGHT;
+					leftAnsRect.y = answersY + SCREEN_HEIGHT;
+					rightAnsRect.y = answersY + SCREEN_HEIGHT;
+					question = 1;
 				}
-				else
+			}
+			if (onQuestion == true)
+			{
+				charRect.y = CharY - SCREEN_HEIGHT;
+				visitRect.y = VisitY - SCREEN_HEIGHT;
+				middleAnsRect.y = answersY - SCREEN_HEIGHT;
+				leftAnsRect.y = answersY - SCREEN_HEIGHT;
+				rightAnsRect.y = answersY - SCREEN_HEIGHT;
+			}
+			else
+			{
+				if (onMap == true)
 				{
-					charRect.y = CharY - SCREEN_HEIGHT;
-					visitRect.y = VisitY - SCREEN_HEIGHT;
+					charRect.y = CharY + SCREEN_HEIGHT;
+					visitRect.y = VisitY + SCREEN_HEIGHT;
+					middleAnsRect.y = answersY + SCREEN_HEIGHT;
+					leftAnsRect.y = answersY + SCREEN_HEIGHT;
+					rightAnsRect.y = answersY + SCREEN_HEIGHT;
 				}
-
 			}
 
 		if (onMap == 1 and onQuestion == false)
@@ -496,7 +698,19 @@ int main(int argc, char* args[])
 			}
 		}
 
-		buttonEvents(quitRect, startRect, backRect, arrowRect, charRect, visitRect, quitMin, startMin);
+		if (ansTrigger == true)
+		{
+			if (ansCountown == 100)
+			{
+				ansTrigger = false;
+				correctAns = nullptr;
+				correctAnsTexture = SDL_CreateTextureFromSurface(renderer, correctAns);
+				ansCountown = 0;
+			}
+			ansCountown++;
+		}
+
+		buttonEvents(quitRect, startRect, backRect, arrowRect, charRect, visitRect, leftAnsRect, middleAnsRect, rightAnsRect, quitMin, startMin);
 
 		SDL_Delay(5);
 	}
