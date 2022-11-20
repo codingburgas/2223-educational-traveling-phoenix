@@ -256,7 +256,7 @@ void showAns(bool ansCheck)
 	}
 }
 
-void exerciseCheck()
+void bulgariaExerciseCheck()
 {
 	if (question == 1)
 	{
@@ -348,6 +348,98 @@ void exerciseCheck()
 	}
 }
 
+void northMakedoniaExerciseCheck()
+{
+	if (question == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Questions/questionOneMacedonia.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionOneFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionOneFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionOneTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 2)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Questions/questionTwoMacedonia.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionTwoFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionTwoFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionTwoTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 3)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Questions/questionThreeMacedonia.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionThreeFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionThreeFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/History/Buttons/questionThreeTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 4)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Questions/questionFourMacedonia.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionFourFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionFourTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionFourFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 5)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Questions/questionFiveMacedonia.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionFiveFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionFiveFalse.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionFiveTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 6)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Questions/questionSixMacedonia.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionSixTrue.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionSixFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionSixFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else
+	{
+		question = 1;
+	}
+}
+
 void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 {
 	int x, y;
@@ -356,7 +448,13 @@ void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 	{
 		onMap = false;
 		onQuestion = true;
-		exerciseCheck();
+		bulgariaExerciseCheck();
+	}
+	if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y and carOnCountry(charRect) == 2)
+	{
+		onMap = false;
+		onQuestion = true;
+		northMakedoniaExerciseCheck();
 	}
 }
 
@@ -459,7 +557,14 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 				{
 					backToMap(arrowRect);
 					questionsButtonsUp(questionButton1, questionButton2, questionButton3);
-					exerciseCheck();
+					if (carOnCountry(charRect) == 1)
+					{
+						bulgariaExerciseCheck();
+					}
+					else if (carOnCountry(charRect) == 2)
+					{
+						northMakedoniaExerciseCheck();
+					}
 				}
 				playButtonEvent(startRect);
 				quiting(quitRect);
