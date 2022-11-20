@@ -26,6 +26,7 @@ The topic of the project was to create a C++ game or software for a traveler mak
 <a><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" alt="word" width="61" height="58"/> </a>
 <a><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Microsoft_Excel_2013-2019_logo.svg/1200px-Microsoft_Excel_2013-2019_logo.svg.png" alt="excel" width="61" height="58"/> </a>
 <a><img src="https://avatars.githubusercontent.com/u/18133?s=200&v=4" alt="git" width="61" height="58"/> </a>
+<a><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="github" width="61" height="58"/> </a>
 </p>
 
 ## 🧰 Installation
