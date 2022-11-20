@@ -70,7 +70,7 @@ SDL_Texture* middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns
 
 SDL_Texture* correctAnsTexture = SDL_CreateTextureFromSurface(renderer, correctAns);
 
-int carOnCountry(SDL_Rect CharRect) //return where the car is
+int carOnCountry(SDL_Rect CharRect)
 {
 	if (CharRect.x >= 865 and CharRect.x <= 1370 and charFixY + 980 <= 801 and charFixY + 980 >= 439)
 	{
@@ -98,7 +98,7 @@ int carOnCountry(SDL_Rect CharRect) //return where the car is
 	}
 }
 
-void quiting(SDL_Rect quitRect) //the game ends
+void quiting(SDL_Rect quitRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -108,7 +108,7 @@ void quiting(SDL_Rect quitRect) //the game ends
 	}
 }
 
-void quitButtonOnHoverCheck(SDL_Rect quitRect) //check if you hovered on the "QUIT" button
+void quitButtonOnHoverCheck(SDL_Rect quitRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -124,7 +124,7 @@ void quitButtonOnHoverCheck(SDL_Rect quitRect) //check if you hovered on the "QU
 	}
 }
 
-void arrowButtonOnHoverCheck(SDL_Rect arrowRect) //check if you hovered on the "arrow" button
+void arrowButtonOnHoverCheck(SDL_Rect arrowRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -140,7 +140,7 @@ void arrowButtonOnHoverCheck(SDL_Rect arrowRect) //check if you hovered on the "
 	}
 }
 
-void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin) // check if you hovered on the "PLAY" button
+void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -182,7 +182,7 @@ void quitButtonEnlarge(SDL_Rect quitRect, bool quitMin)
 	}
 }
 
-void playButtonEvent(SDL_Rect startRect) //check if you clicked the "PLAY" button
+void playButtonEvent(SDL_Rect startRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -195,7 +195,7 @@ void playButtonEvent(SDL_Rect startRect) //check if you clicked the "PLAY" butto
 	}
 }
 
-void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect) // the direction of the car
+void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -216,7 +216,7 @@ void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect) // 
 	}
 }
 	
-void backToMenu(SDL_Rect arrowRect) // back to the menu
+void backToMenu(SDL_Rect arrowRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -229,7 +229,7 @@ void backToMenu(SDL_Rect arrowRect) // back to the menu
 	}
 }
 
-void backToMap(SDL_Rect arrowRect) //back to the map
+void backToMap(SDL_Rect arrowRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -240,7 +240,7 @@ void backToMap(SDL_Rect arrowRect) //back to the map
 	}
 }
 
-void showAns(bool ansCheck) // return if the answer is correct or not
+void showAns(bool ansCheck)
 {
 	if (ansCheck == 1)
 	{
@@ -256,11 +256,7 @@ void showAns(bool ansCheck) // return if the answer is correct or not
 	}
 }
 
-<<<<<<< HEAD
 void bulgariaExerciseCheck()
-=======
-void exerciseCheck() //check which question you are on
->>>>>>> 9ef76b256b71c9abad73d094484a1e1edd3cbc2c
 {
 	if (question == 1)
 	{
@@ -352,7 +348,6 @@ void exerciseCheck() //check which question you are on
 	}
 }
 
-<<<<<<< HEAD
 void northMakedoniaExerciseCheck()
 {
 	if (question == 1)
@@ -436,7 +431,99 @@ void northMakedoniaExerciseCheck()
 		middleAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionSixFalse2.bmp");
 		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
 
-		rightAns = SDL_LoadBMP("./Graphics/Countries/Bulgaria/Geography/Buttons/questionSixFalse.bmp");
+		rightAns = SDL_LoadBMP("./Graphics/Countries/NorthMacedonia/Geography/Buttons/questionSixFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else
+	{
+		question = 1;
+	}
+}
+
+void kosovoExerciseCheck()
+{
+	if (question == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Questions/questionOneKosovo.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionOneFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionOneFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionOneTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 2)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Questions/questionTwoKosovo.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionTwoFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionTwoFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionTwoTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 3)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Questions/questionThreeKosovo.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionThreeFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionThreeFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/History/Buttons/questionThreeTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 4)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Questions/questionFourKosovo.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionFourFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionFourTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionFourFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 5)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Questions/questionFiveKosovo.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionFiveFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionFiveFalse.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionFiveTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 6)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Questions/questionSixKosovo.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionSixTrue.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionSixFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Kosovo/Geography/Buttons/questionSixFalse.bmp");
 		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
 	}
 	else
@@ -446,9 +533,6 @@ void northMakedoniaExerciseCheck()
 }
 
 void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
-=======
-void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect) //checks if you pressed the "VISIT" button
->>>>>>> 9ef76b256b71c9abad73d094484a1e1edd3cbc2c
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -464,9 +548,15 @@ void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect) //checks if you presse
 		onQuestion = true;
 		northMakedoniaExerciseCheck();
 	}
+	if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y and carOnCountry(charRect) == 3)
+	{
+		onMap = false;
+		onQuestion = true;
+		kosovoExerciseCheck();
+	}
 }
 
-void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3 ) //check which answer you clicked on
+void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3 )
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -508,7 +598,7 @@ void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_
 	}
 }
 
-void hoveredCountry() // check which country you hovered and check the country's color
+void hoveredCountry()
 {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -547,7 +637,7 @@ void hoveredCountry() // check which country you hovered and check the country's
 		}
 }
 
-void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3, bool quitMin, bool startMin) // combine all the event buttons
+void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3, bool quitMin, bool startMin)
 {
 	if (SDL_PollEvent(&eventImage))
 	{
@@ -572,6 +662,10 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 					else if (carOnCountry(charRect) == 2)
 					{
 						northMakedoniaExerciseCheck();
+					}
+					else if (carOnCountry(charRect) == 3)
+					{
+						kosovoExerciseCheck();
 					}
 				}
 				playButtonEvent(startRect);
@@ -619,7 +713,7 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 	}
 }
 
-void visitButton(SDL_Rect charRect, SDL_Rect visitRect) //check if you hovered the "VISIT" button
+void visitButton(SDL_Rect charRect, SDL_Rect visitRect)
 {
 	if (onMap == 1 and onQuestion == false)
 	{
