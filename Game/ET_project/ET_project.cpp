@@ -70,7 +70,7 @@ SDL_Texture* middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns
 
 SDL_Texture* correctAnsTexture = SDL_CreateTextureFromSurface(renderer, correctAns);
 
-int carOnCountry(SDL_Rect CharRect)
+int carOnCountry(SDL_Rect CharRect) //return where the car is
 {
 	if (CharRect.x >= 865 and CharRect.x <= 1370 and charFixY + 980 <= 801 and charFixY + 980 >= 439)
 	{
@@ -98,7 +98,7 @@ int carOnCountry(SDL_Rect CharRect)
 	}
 }
 
-void quiting(SDL_Rect quitRect)
+void quiting(SDL_Rect quitRect) //the game ends
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -108,7 +108,7 @@ void quiting(SDL_Rect quitRect)
 	}
 }
 
-void quitButtonOnHoverCheck(SDL_Rect quitRect)
+void quitButtonOnHoverCheck(SDL_Rect quitRect) //check if you hovered on the "QUIT" button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -124,7 +124,7 @@ void quitButtonOnHoverCheck(SDL_Rect quitRect)
 	}
 }
 
-void arrowButtonOnHoverCheck(SDL_Rect arrowRect)
+void arrowButtonOnHoverCheck(SDL_Rect arrowRect) //check if you hovered on the "arrow" button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -140,7 +140,7 @@ void arrowButtonOnHoverCheck(SDL_Rect arrowRect)
 	}
 }
 
-void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin)
+void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin) // check if you hovered on the "PLAY" button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -182,7 +182,7 @@ void quitButtonEnlarge(SDL_Rect quitRect, bool quitMin)
 	}
 }
 
-void playButtonEvent(SDL_Rect startRect)
+void playButtonEvent(SDL_Rect startRect) //check if you clicked the "PLAY" button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -195,7 +195,7 @@ void playButtonEvent(SDL_Rect startRect)
 	}
 }
 
-void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect)
+void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect) // the direction of the car
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -216,7 +216,7 @@ void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect)
 	}
 }
 	
-void backToMenu(SDL_Rect arrowRect)
+void backToMenu(SDL_Rect arrowRect) // back to the menu
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -229,7 +229,7 @@ void backToMenu(SDL_Rect arrowRect)
 	}
 }
 
-void backToMap(SDL_Rect arrowRect)
+void backToMap(SDL_Rect arrowRect) //back to the map
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -240,7 +240,7 @@ void backToMap(SDL_Rect arrowRect)
 	}
 }
 
-void showAns(bool ansCheck)
+void showAns(bool ansCheck) // return if the answer is correct or not
 {
 	if (ansCheck == 1)
 	{
@@ -256,7 +256,7 @@ void showAns(bool ansCheck)
 	}
 }
 
-void exerciseCheck()
+void exerciseCheck() //check which question you are on
 {
 	if (question == 1)
 	{
@@ -348,7 +348,7 @@ void exerciseCheck()
 	}
 }
 
-void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
+void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect) //checks if you pressed the "VISIT" button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -360,7 +360,7 @@ void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 	}
 }
 
-void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3 )
+void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3 ) //check which answer you clicked on
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -402,7 +402,7 @@ void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_
 	}
 }
 
-void hoveredCountry()
+void hoveredCountry() // check which country you hovered and check the country's color
 {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -441,7 +441,7 @@ void hoveredCountry()
 		}
 }
 
-void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3, bool quitMin, bool startMin)
+void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3, bool quitMin, bool startMin) // combine all the event buttons
 {
 	if (SDL_PollEvent(&eventImage))
 	{
@@ -506,7 +506,7 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 	}
 }
 
-void visitButton(SDL_Rect charRect, SDL_Rect visitRect)
+void visitButton(SDL_Rect charRect, SDL_Rect visitRect) //check if you hovered the "VISIT" button
 {
 	if (onMap == 1 and onQuestion == false)
 	{
