@@ -1,6 +1,6 @@
 <h1 align = center> EDUCATIONAL TRAVELING Project </h1>
 <p align = "center">
-<img src = "ET_project/ET_project/Graphics/logo.png" width = "400px">
+<img src = "Game/ET_project/Graphics/logo.png" width = "400px">
 </p>
 
 ## ⭐ Team Members
