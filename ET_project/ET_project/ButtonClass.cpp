@@ -9,29 +9,29 @@
 
 using namespace std;
 
-ButtonClass::ButtonClass()
+buttonClass::buttonClass()
 {
-	void PlayButtonOnHoverCheck(SDL_Rect StartRect, bool StartMin)
+	void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin)
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
-		if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
+		if (x >= startRect.x and x <= startRect.w + startRect.x and y >= startRect.y and y <= startRect.h + startRect.y)
 		{
 			start = SDL_LoadBMP("./Graphics/ButtonPlayHovered.bmp");
-			StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+			startTexture = SDL_CreateTextureFromSurface(renderer, start);
 
 			return void();
 		}
 		else
 		{
 			start = SDL_LoadBMP("./Graphics/ButtonPlay.bmp");
-			StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+			startTexture = SDL_CreateTextureFromSurface(renderer, start);
 
 			if (StartMin == true)
 			{
-				StartRect.w = StartRect.w - 20;
-				StartRect.h = StartRect.h - 20;
-				StartMin = false;
+				startRect.w = startRect.w - 20;
+				startRect.h = startRect.h - 20;
+				startMin = false;
 				return void();
 			}
 		}
@@ -39,6 +39,6 @@ ButtonClass::ButtonClass()
 
 }
 
-ButtonClass::ButtonClass()
+buttonClass::buttonClass()
 {
 }
