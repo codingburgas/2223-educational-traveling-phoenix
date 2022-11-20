@@ -624,6 +624,98 @@ void montenegroExerciseCheck()
 	}
 }
 
+void albaniaExerciseCheck()
+{
+	if (question == 1)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Albania/History/Questions/questionOneAlbania.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionOneFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionOneFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionOneTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 2)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Albania/History/Questions/questionTwoAlbania.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionTwoFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionTwoFalse2.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionTwoTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+	}
+	else if (question == 3)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Albania/History/Questions/questionThreeAlbania.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionThreeFalse.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionThreeFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Albania/History/Buttons/questionThreeTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 4)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Questions/questionFourAlbania.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionFourFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionFourTrue.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionFourFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 5)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Questions/questionFiveAlbania.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionFiveFalse2.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionFiveFalse.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionFiveTrue.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else if (question == 6)
+	{
+		background = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Questions/questionSixAlbania.bmp");
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+
+		leftAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionSixTrue.bmp");
+		leftAnsTexture = SDL_CreateTextureFromSurface(renderer, leftAns);
+
+		middleAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionSixFalse2.bmp");
+		middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns);
+
+		rightAns = SDL_LoadBMP("./Graphics/Countries/Albania/Geography/Buttons/questionSixFalse.bmp");
+		rightAnsTexture = SDL_CreateTextureFromSurface(renderer, rightAns);
+	}
+	else
+	{
+		question = 1;
+	}
+}
+
 void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 {
 	int x, y;
@@ -651,6 +743,12 @@ void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 		onMap = false;
 		onQuestion = true;
 		montenegroExerciseCheck();
+	}
+	if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y and carOnCountry(charRect) == 5)
+	{
+		onMap = false;
+		onQuestion = true;
+		albaniaExerciseCheck();
 	}
 }
 
@@ -768,6 +866,10 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 					else if (carOnCountry(charRect) == 4)
 					{
 						montenegroExerciseCheck();
+					}
+					else if (carOnCountry(charRect) == 5)
+					{
+						albaniaExerciseCheck();
 					}
 				}
 				playButtonEvent(startRect);
