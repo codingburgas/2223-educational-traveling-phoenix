@@ -366,37 +366,37 @@ void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_
 	SDL_GetMouseState(&x, &y);
 	if (x >= questionButton1.x and x <= questionButton1.w + questionButton1.x and y >= questionButton1.y and y <= questionButton1.h + questionButton1.y)
 	{
-		if (question == 1 or question == 2 or question == 3 or question == 4 or question == 5)
+		if (question == 6)
 		{
-			showAns(0);
+			showAns(1);
 		}
 		else
 		{
-			showAns(1);
+			showAns(0);
 		}
 		question++;
 	}
 	else if (x >= questionButton2.x and x <= questionButton2.w + questionButton2.x and y >= questionButton2.y and y <= questionButton2.h + questionButton2.y)
 	{
-		if (question == 3 or question == 5 or question == 6)
+		if (question == 1 or question == 2 or question == 4)
 		{
-			showAns(0);
+			showAns(1);
 		}
 		else
 		{
-			showAns(1);
+			showAns(0);
 		}
 		question++;
 	}
 	else if (x >= questionButton3.x and x <= questionButton3.w + questionButton3.x and y >= questionButton3.y and y <= questionButton3.h + questionButton3.y)
 	{
-		if (question == 6 or question == 4 or question == 2)
+		if (question == 3 or question == 5)
 		{
-			showAns(0);
+			showAns(1);
 		}
 		else
 		{
-			showAns(1);
+			showAns(0);
 		}
 		question++;
 	}
