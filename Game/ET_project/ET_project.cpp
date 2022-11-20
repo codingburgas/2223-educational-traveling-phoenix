@@ -70,7 +70,7 @@ SDL_Texture* middleAnsTexture = SDL_CreateTextureFromSurface(renderer, middleAns
 
 SDL_Texture* correctAnsTexture = SDL_CreateTextureFromSurface(renderer, correctAns);
 
-int carOnCountry(SDL_Rect CharRect)
+int carOnCountry(SDL_Rect CharRect) // moving the car to the specific country
 {
 	if (CharRect.x >= 865 and CharRect.x <= 1370 and charFixY + 980 <= 801 and charFixY + 980 >= 439)
 	{
@@ -98,7 +98,7 @@ int carOnCountry(SDL_Rect CharRect)
 	}
 }
 
-void quiting(SDL_Rect quitRect)
+void quiting(SDL_Rect quitRect) // end the game
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -108,7 +108,7 @@ void quiting(SDL_Rect quitRect)
 	}
 }
 
-void quitButtonOnHoverCheck(SDL_Rect quitRect)
+void quitButtonOnHoverCheck(SDL_Rect quitRect) // check if you hovered on QUIT button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -124,7 +124,7 @@ void quitButtonOnHoverCheck(SDL_Rect quitRect)
 	}
 }
 
-void arrowButtonOnHoverCheck(SDL_Rect arrowRect)
+void arrowButtonOnHoverCheck(SDL_Rect arrowRect) // check if you hovered on ARROW button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -140,7 +140,7 @@ void arrowButtonOnHoverCheck(SDL_Rect arrowRect)
 	}
 }
 
-void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin)
+void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin) // check if you hovered on PLAY button
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -166,7 +166,7 @@ void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin)
 	}
 }
 
-void quitButtonEnlarge(SDL_Rect quitRect, bool quitMin)
+void quitButtonEnlarge(SDL_Rect quitRect, bool quitMin) 
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -182,7 +182,7 @@ void quitButtonEnlarge(SDL_Rect quitRect, bool quitMin)
 	}
 }
 
-void playButtonEvent(SDL_Rect startRect)
+void playButtonEvent(SDL_Rect startRect) //change the color of the country when it is hovered
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -195,7 +195,7 @@ void playButtonEvent(SDL_Rect startRect)
 	}
 }
 
-void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect)
+void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect) // whether the car is turned on left or right
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -216,7 +216,7 @@ void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect)
 	}
 }
 	
-void backToMenu(SDL_Rect arrowRect)
+void backToMenu(SDL_Rect arrowRect) // back to menu with arrow
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -229,7 +229,7 @@ void backToMenu(SDL_Rect arrowRect)
 	}
 }
 
-void backToMap(SDL_Rect arrowRect)
+void backToMap(SDL_Rect arrowRect) // back to map with arrow
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -240,7 +240,7 @@ void backToMap(SDL_Rect arrowRect)
 	}
 }
 
-void showAns(bool ansCheck)
+void showAns(bool ansCheck) // show true or false whether the answer is correct
 {
 	if (ansCheck == 1)
 	{
@@ -256,7 +256,7 @@ void showAns(bool ansCheck)
 	}
 }
 
-void bulgariaExerciseCheck()
+void bulgariaExerciseCheck() // check answers for Bulgaria's questions
 {
 	if (question == 1)
 	{
@@ -348,7 +348,7 @@ void bulgariaExerciseCheck()
 	}
 }
 
-void northMakedoniaExerciseCheck()
+void northMakedoniaExerciseCheck() // check answers for North Makedonia's questions
 {
 	if (question == 1)
 	{
@@ -440,7 +440,7 @@ void northMakedoniaExerciseCheck()
 	}
 }
 
-void kosovoExerciseCheck()
+void kosovoExerciseCheck() // check answers for Kosovo's questions
 {
 	if (question == 1)
 	{
@@ -532,7 +532,7 @@ void kosovoExerciseCheck()
 	}
 }
 
-void montenegroExerciseCheck()
+void montenegroExerciseCheck() // check answers for Montenegro's questions
 {
 	if (question == 1)
 	{
@@ -624,7 +624,7 @@ void montenegroExerciseCheck()
 	}
 }
 
-void albaniaExerciseCheck()
+void albaniaExerciseCheck() // check answers for Albania's questions
 {
 	if (question == 1)
 	{
@@ -716,7 +716,7 @@ void albaniaExerciseCheck()
 	}
 }
 
-void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
+void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect) // clicking the button VISIT to start questions
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -752,7 +752,7 @@ void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 	}
 }
 
-void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3 )
+void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3 ) // clicking to the answers to check whether is true or false
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -794,7 +794,7 @@ void questionsButtonsUp(SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_
 	}
 }
 
-void hoveredCountry()
+void hoveredCountry() // change color for hovered country
 {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -833,7 +833,7 @@ void hoveredCountry()
 		}
 }
 
-void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3, bool quitMin, bool startMin)
+void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, SDL_Rect questionButton1, SDL_Rect questionButton2, SDL_Rect questionButton3, bool quitMin, bool startMin) // all buttons in one event
 {
 	if (SDL_PollEvent(&eventImage))
 	{
@@ -917,7 +917,7 @@ void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SD
 	}
 }
 
-void visitButton(SDL_Rect charRect, SDL_Rect visitRect)
+void visitButton(SDL_Rect charRect, SDL_Rect visitRect) // hovered Visit button modes
 {
 	if (onMap == 1 and onQuestion == false)
 	{
