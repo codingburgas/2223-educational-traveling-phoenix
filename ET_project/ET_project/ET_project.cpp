@@ -10,19 +10,19 @@ using namespace std;
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
 
-bool QuitMin = false;
-bool StartMin = false;
+bool quitMin = false;
+bool startMin = false;
 bool playing = true;
-bool OnMap = false;
-bool OnQuestion = false;
+bool onMap = false;
+bool onQuestion = false;
 
-int CharFlagX;
-int CharFlagY;
-int CharFixY = 0;
+int charFlagX;
+int charFlagY;
+int charFixY = 0;
 
 int money = 0;
 
-SDL_Event eventImage;
+SDL_Event eventImage; 
 
 SDL_Window* window = SDL_CreateWindow("Europe trip", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
@@ -34,43 +34,43 @@ SDL_Surface* quit = SDL_LoadBMP("./Graphics/Buttons/ButtonQuit.bmp");
 
 SDL_Surface* start = SDL_LoadBMP("./Graphics/Buttons/ButtonPlay.bmp");
 
-SDL_Surface* Arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
+SDL_Surface* arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
 
 SDL_Surface* character = SDL_LoadBMP("./Graphics/carOne.bmp");
 
 SDL_Surface* visit = SDL_LoadBMP("./Graphics/MapModes/EnteredVisit.bmp");
 
-SDL_Texture* BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 
 SDL_Texture* characterTexture = SDL_CreateTextureFromSurface(renderer, character);
 
-SDL_Texture* QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+SDL_Texture* quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 
-SDL_Texture* StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+SDL_Texture* startTexture = SDL_CreateTextureFromSurface(renderer, start);
 
-SDL_Texture* ArrowTexture = SDL_CreateTextureFromSurface(renderer, Arrow);  
+SDL_Texture* arrowTexture = SDL_CreateTextureFromSurface(renderer, arrow);  
 
 SDL_Texture* visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
 
-int CarOnCountry(SDL_Rect CharRect)
+int carOnCountry(SDL_Rect CharRect)
 {
-	if (CharRect.x >= 865 and CharRect.x <= 1370 and CharFixY + 980 <= 801 and CharFixY + 980 >= 439)
+	if (CharRect.x >= 865 and CharRect.x <= 1370 and charFixY + 980 <= 801 and charFixY + 980 >= 439)
 	{
 		return 1;
 	}
-	else if (CharRect.x >= 619 and CharRect.x <= 840 and CharFixY + 980 <= 830 and CharFixY + 980 >= 701)
+	else if (CharRect.x >= 619 and CharRect.x <= 840 and charFixY + 980 <= 830 and charFixY + 980 >= 701)
 	{
 		return 2;
 	}
-	else if (CharRect.x >= 584 and CharRect.x <= 701 and CharFixY + 980 <= 658 and CharFixY + 980 >= 579)
+	else if (CharRect.x >= 584 and CharRect.x <= 701 and charFixY + 980 <= 658 and charFixY + 980 >= 579)
 	{
 		return 3; 
 	}
-	else if (CharRect.x >= 401 and CharRect.x  <= 513 and CharFixY + 980 <= 639 and CharFixY + 980 >= 545)
+	else if (CharRect.x >= 401 and CharRect.x  <= 513 and charFixY + 980 <= 639 and charFixY + 980 >= 545)
 	{
 		return 4;
 	}
-	else if (CharRect.x >= 487 and CharRect.x  <= 586 and CharFixY + 980 <= 1016 and CharFixY + 980 >= 667)
+	else if (CharRect.x >= 487 and CharRect.x  <= 586 and charFixY + 980 <= 1016 and charFixY + 980 >= 667)
 	{
 		return 5;
 	}
@@ -80,112 +80,112 @@ int CarOnCountry(SDL_Rect CharRect)
 	}
 }
 
-void Quiting(SDL_Rect QuitRect)
+void quiting(SDL_Rect quitRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
+	if (x >= quitRect.x and x <= quitRect.w + quitRect.x and y >= quitRect.y and y <= quitRect.h + quitRect.y)
 	{ 
 		playing = false;
 	}
 }
 
-void QuitButtonOnHoverCheck(SDL_Rect QuitRect)
+void quitButtonOnHoverCheck(SDL_Rect quitRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
+	if (x >= quitRect.x and x <= quitRect.w + quitRect.x and y >= quitRect.y and y <= quitRect.h + quitRect.y)
 	{
 		quit = SDL_LoadBMP("./Graphics/Buttons/ButtonQuitHovered.bmp");
-		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+		quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 	}
 	else
 	{
 		quit = SDL_LoadBMP("./Graphics/Buttons/ButtonQuit.bmp");
-		QuitTexture = SDL_CreateTextureFromSurface(renderer, quit);
+		quitTexture = SDL_CreateTextureFromSurface(renderer, quit);
 	}
 }
 
-void ArrowButtonOnHoverCheck(SDL_Rect ArrowRect)
+void arrowButtonOnHoverCheck(SDL_Rect arrowRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= ArrowRect.x and x <= ArrowRect.w + ArrowRect.x and y >= ArrowRect.y and y <= ArrowRect.h + ArrowRect.y)
+	if (x >= arrowRect.x and x <= arrowRect.w + arrowRect.x and y >= arrowRect.y and y <= arrowRect.h + arrowRect.y)
 	{
-		Arrow = SDL_LoadBMP("./Graphics/ArrowHovered.bmp");
-		ArrowTexture = SDL_CreateTextureFromSurface(renderer, Arrow);
+		arrow = SDL_LoadBMP("./Graphics/ArrowHovered.bmp");
+		arrowTexture = SDL_CreateTextureFromSurface(renderer, arrow);
 	}
 	else
 	{
-		Arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
-		ArrowTexture = SDL_CreateTextureFromSurface(renderer, Arrow);
+		arrow = SDL_LoadBMP("./Graphics/ArrowNotHovered.bmp");
+		arrowTexture = SDL_CreateTextureFromSurface(renderer, arrow);
 	}
 }
 
-void PlayButtonOnHoverCheck(SDL_Rect StartRect, bool StartMin)
+void playButtonOnHoverCheck(SDL_Rect startRect, bool startMin)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
+	if (x >= startRect.x and x <= startRect.w + startRect.x and y >= startRect.y and y <= startRect.h + startRect.y)
 	{
 		start = SDL_LoadBMP("./Graphics/Buttons/ButtonPlayHovered.bmp");
-		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+		startTexture = SDL_CreateTextureFromSurface(renderer, start);
 
 		return void();
 	}
 	else
 	{
 		start = SDL_LoadBMP("./Graphics/Buttons/ButtonPlay.bmp");
-		StartTexture = SDL_CreateTextureFromSurface(renderer, start);
+		startTexture = SDL_CreateTextureFromSurface(renderer, start);
 
-		if (StartMin == true)
+		if (startMin == true)
 		{
-			StartRect.w = StartRect.w - 20;
-			StartRect.h = StartRect.h - 20;
-			StartMin = false;
+			startRect.w = startRect.w - 20;
+			startRect.h = startRect.h - 20;
+			startMin = false;
 			return void();
 		}
 	}
 }
 
-void QuitButtonEnlarge(SDL_Rect QuitRect, bool QuitMin)
+void quitButtonEnlarge(SDL_Rect quitRect, bool quitMin)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= QuitRect.x and x <= QuitRect.w + QuitRect.x and y >= QuitRect.y and y <= QuitRect.h + QuitRect.y)
+	if (x >= quitRect.x and x <= quitRect.w + quitRect.x and y >= quitRect.y and y <= quitRect.h + quitRect.y)
 	{
-		if (QuitMin == false)
+		if (quitMin == false)
 		{
-			QuitRect.w = QuitRect.w + 20;
-			QuitRect.h = QuitRect.h + 20;
-			QuitMin = true;
-			return void(QuitMin);
+			quitRect.w = quitRect.w + 20;
+			quitRect.h = quitRect.h + 20;
+			quitMin = true;
+			return void(quitMin);
 		}
 	}
 }
 
-void PlayButtonEvent(SDL_Rect StartRect)
+void playButtonEvent(SDL_Rect startRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
+	if (x >= startRect.x and x <= startRect.w + startRect.x and y >= startRect.y and y <= startRect.h + startRect.y)
 	{
 		
-		OnMap = true;
+		onMap = true;
 		background = SDL_LoadBMP("./Graphics/MapModes/Mode1.bmp");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 	}
 }
 
-void CharPosEvent(SDL_Rect CharRect, SDL_Rect ArrowRect, SDL_Rect VisitRect)
+void charPosEvent(SDL_Rect charRect, SDL_Rect arrowRect, SDL_Rect visitRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (OnMap == true)
+	if (onMap == true)
 	{
-		CharFlagX = x;
-		CharFlagY = y;
-		if (CharRect.x < x )
+		charFlagX = x;
+		charFlagY = y;
+		if (charRect.x < x )
 		{
 			character = SDL_LoadBMP("./Graphics/carOne.bmp");
 			characterTexture = SDL_CreateTextureFromSurface(renderer, character);
@@ -198,154 +198,154 @@ void CharPosEvent(SDL_Rect CharRect, SDL_Rect ArrowRect, SDL_Rect VisitRect)
 	}
 }
 	
-void BackToMenu(SDL_Rect ArrowRect)
+void backToMenu(SDL_Rect arrowRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= ArrowRect.x and x <= ArrowRect.w + ArrowRect.x and y >= ArrowRect.y and y <= ArrowRect.h + ArrowRect.y)
+	if (x >= arrowRect.x and x <= arrowRect.w + arrowRect.x and y >= arrowRect.y and y <= arrowRect.h + arrowRect.y)
 	{
 		
-		OnMap = false;
+		onMap = false;
 		background = SDL_LoadBMP("./Graphics/background.bmp");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 	}
 }
 
-void BackToMap(SDL_Rect ArrowRect)
+void backToMap(SDL_Rect arrowRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= ArrowRect.x and x <= ArrowRect.w + ArrowRect.x and y >= ArrowRect.y and y <= ArrowRect.h + ArrowRect.y)
+	if (x >= arrowRect.x and x <= arrowRect.w + arrowRect.x and y >= arrowRect.y and y <= arrowRect.h + arrowRect.y)
 	{
-		OnMap = true;
-		OnQuestion = false;
+		onMap = true;
+		onQuestion = false;
 	}
 }
 
-void visitButtonUp(SDL_Rect visitRect, SDL_Rect CharRect)
+void visitButtonUp(SDL_Rect visitRect, SDL_Rect charRect)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y and CarOnCountry(CharRect) != 0)
+	if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y and carOnCountry(charRect) != 0)
 	{
-		OnMap = false;
-		OnQuestion = true;
+		onMap = false;
+		onQuestion = true;
 		background = SDL_LoadBMP("./Graphics/");
-		BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 	}
 }
 
-void HoveredCountry()
+void hoveredCountry()
 {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
-		if (x >= 865 and x <= 1370 and y <= 801 and y >= 439 and OnMap == 1 and OnQuestion == false)
+		if (x >= 865 and x <= 1370 and y <= 801 and y >= 439 and onMap == 1 and onQuestion == false)
 		{
 			background = SDL_LoadBMP("./Graphics/MapModes/Mode2.bmp");
-			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+			backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
-		else if (x >= 619 and x <= 840 and y <= 830 and y >= 701 and OnMap == 1 and OnQuestion == false)
+		else if (x >= 619 and x <= 840 and y <= 830 and y >= 701 and onMap == 1 and onQuestion == false)
 		{
 			background = SDL_LoadBMP("./Graphics/MapModes/Mode3.bmp");
-			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+			backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
-		else if (x >= 584 and x <= 701 and y <= 658 and y >= 579 and OnMap == 1 and OnQuestion == false)
+		else if (x >= 584 and x <= 701 and y <= 658 and y >= 579 and onMap == 1 and onQuestion == false)
 		{
 			background = SDL_LoadBMP("./Graphics/MapModes/Mode4.bmp");
-			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+			backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
-		else if (x >= 401 and x <= 513 and y <= 639 and y >= 545 and OnMap == 1 and OnQuestion == false)
+		else if (x >= 401 and x <= 513 and y <= 639 and y >= 545 and onMap == 1 and onQuestion == false)
 		{
 			background = SDL_LoadBMP("./Graphics/MapModes/Mode5.bmp");
-			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+			backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
-		else if (x >= 487 and x <= 586 and y <= 1016 and y >= 667 and OnMap == 1 and OnQuestion == false)
+		else if (x >= 487 and x <= 586 and y <= 1016 and y >= 667 and onMap == 1 and onQuestion == false)
 		{
 			background = SDL_LoadBMP("./Graphics/MapModes/Mode6.bmp");
-			BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+			backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 		}
 		else
 		{
-			if (OnMap == 1 and OnQuestion == false)
+			if (onMap == 1 and onQuestion == false)
 			{
 				background = SDL_LoadBMP("./Graphics/MapModes/Mode1.bmp");
-				BackgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
+				backgroundTexture = SDL_CreateTextureFromSurface(renderer, background);
 			}
 		}
 }
 
-void ButtonEvents(SDL_Rect QuitRect, SDL_Rect StartRect, SDL_Rect background, SDL_Rect ArrowRect, SDL_Rect charRect, SDL_Rect visitRect, bool QuitMin, bool StartMin)
+void buttonEvents(SDL_Rect quitRect, SDL_Rect startRect, SDL_Rect background, SDL_Rect arrowRect, SDL_Rect charRect, SDL_Rect visitRect, bool quitMin, bool startMin)
 {
 	if (SDL_PollEvent(&eventImage))
 	{
 		if (SDL_MOUSEBUTTONUP == eventImage.type)
 		{
-			if (OnMap == 1 and OnQuestion == false)
+			if (onMap == 1 and onQuestion == false)
 			{
-				BackToMenu(ArrowRect);
-				CharPosEvent(charRect, ArrowRect, visitRect);
+				backToMenu(arrowRect);
+				charPosEvent(charRect, arrowRect, visitRect);
 				visitButtonUp(visitRect, charRect);
 			}
 			else
 			{
-				if (OnQuestion == true)
+				if (onQuestion == true)
 				{
-					BackToMap(ArrowRect);
+					backToMap(arrowRect);
 				}
-				PlayButtonEvent(StartRect);
-				Quiting(QuitRect);
+				playButtonEvent(startRect);
+				quiting(quitRect);
 			}  	
 		}
 		if (SDL_MOUSEMOTION == eventImage.type)
 		{
-			if (OnMap == 1 and OnQuestion == false)
+			if (onMap == 1 and onQuestion == false)
 			{
-				ArrowButtonOnHoverCheck(ArrowRect);
-				HoveredCountry();
+				arrowButtonOnHoverCheck(arrowRect);
+				hoveredCountry();
 			}
 			else
 			{
-				if (OnQuestion == true)
+				if (onQuestion == true)
 				{
-					ArrowButtonOnHoverCheck(ArrowRect);
+					arrowButtonOnHoverCheck(arrowRect);
 				}
-				QuitButtonOnHoverCheck(QuitRect);
-				PlayButtonOnHoverCheck(StartRect, StartMin);
+				quitButtonOnHoverCheck(quitRect);
+				playButtonOnHoverCheck(startRect, startMin);
 			}
 		}
 		if (SDL_MOUSEBUTTONDOWN == eventImage.type)
 		{
-			if (OnMap == 1 and OnQuestion == false)
+			if (onMap == 1 and onQuestion == false)
 			{
-				QuitButtonEnlarge(QuitRect, QuitMin);	
+				quitButtonEnlarge(quitRect, quitMin);	
 			}
 		}
 		if (SDL_MOUSEBUTTONDOWN == eventImage.type)
 		{
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			if (x >= StartRect.x and x <= StartRect.w + StartRect.x and y >= StartRect.y and y <= StartRect.h + StartRect.y)
+			if (x >= startRect.x and x <= startRect.w + startRect.x and y >= startRect.y and y <= startRect.h + startRect.y)
 			{
-				if (StartMin == false)
+				if (startMin == false)
 				{
-					StartRect.w = StartRect.w + 20;
-					StartRect.h = StartRect.h + 20;
-					StartMin = true;
+					startRect.w = startRect.w + 20;
+					startRect.h = startRect.h + 20;
+					startMin = true;
 				}
 			}
 		}
 	}
 }
 
-void VisitButton(SDL_Rect CharRect, SDL_Rect VisitRect)
+void visitButton(SDL_Rect charRect, SDL_Rect visitRect)
 {
-	if (OnMap == 1 and OnQuestion == false)
+	if (onMap == 1 and onQuestion == false)
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
-		if (CarOnCountry(CharRect) != 0)
+		if (carOnCountry(charRect) != 0)
 		{
-			if (x >= VisitRect.x and x <= VisitRect.w + VisitRect.x and y >= VisitRect.y and y <= VisitRect.h + VisitRect.y)
+			if (x >= visitRect.x and x <= visitRect.w + visitRect.x and y >= visitRect.y and y <= visitRect.h + visitRect.y)
 			{
 				visit = SDL_LoadBMP("./Graphics/Buttons/NormalModeVisit.bmp");
 				visitTexture = SDL_CreateTextureFromSurface(renderer, visit);
@@ -366,58 +366,58 @@ void VisitButton(SDL_Rect CharRect, SDL_Rect VisitRect)
 
 int main(int argc, char* args[])
 {
-	SDL_Rect BackRect;
-	BackRect.w = SCREEN_WIDTH;
-	BackRect.h = SCREEN_HEIGHT;
-	BackRect.x = 0;
-	BackRect.y = 0;
+	SDL_Rect backRect;
+	backRect.w = SCREEN_WIDTH;
+	backRect.h = SCREEN_HEIGHT;
+	backRect.x = 0;
+	backRect.y = 0;
 
-	SDL_Rect QuitRect;
-	QuitRect.w = 215;
-	QuitRect.h = 129;
-	QuitRect.x = SCREEN_WIDTH / 2 - QuitRect.w / 2;
-	QuitRect.y = SCREEN_HEIGHT - SCREEN_HEIGHT / 2 + 200 - SCREEN_HEIGHT;
+	SDL_Rect quitRect;
+	quitRect.w = 215;
+	quitRect.h = 129;
+	quitRect.x = SCREEN_WIDTH / 2 - quitRect.w / 2;
+	quitRect.y = SCREEN_HEIGHT - SCREEN_HEIGHT / 2 + 200 - SCREEN_HEIGHT;
 
-	SDL_Rect MouseRect;
-	MouseRect.x = 0;
-	MouseRect.y = 0;
-	MouseRect.w = 50;
-	MouseRect.h = 50;
+	SDL_Rect mouseRect;
+	mouseRect.x = 0;
+	mouseRect.y = 0;
+	mouseRect.w = 50;
+	mouseRect.h = 50;
 
-	SDL_Rect StartRect;
-	StartRect.w = 215;
-	StartRect.h = 129;
-	StartRect.x = SCREEN_WIDTH / 2 - StartRect.w / 2;
-	StartRect.y = SCREEN_HEIGHT / 2 - SCREEN_HEIGHT;
+	SDL_Rect startRect;
+	startRect.w = 215;
+	startRect.h = 129;
+	startRect.x = SCREEN_WIDTH / 2 - startRect.w / 2;
+	startRect.y = SCREEN_HEIGHT / 2 - SCREEN_HEIGHT;
 
-	SDL_Rect ArrowRect;
-	ArrowRect.w = 215;
-	ArrowRect.h = 129;
-	ArrowRect.x = 0;
-	ArrowRect.y = 0 - SCREEN_HEIGHT;
+	SDL_Rect arrowRect;
+	arrowRect.w = 215;
+	arrowRect.h = 129;
+	arrowRect.x = 0;
+	arrowRect.y = 0 - SCREEN_HEIGHT;
 
-	SDL_Rect CharRect;
-	CharRect.w = 155;
-	CharRect.h = 67;
-	CharRect.x = 500;
-	CharRect.y = -100;
+	SDL_Rect charRect;
+	charRect.w = 155;
+	charRect.h = 67;
+	charRect.x = 500;
+	charRect.y = -100;
 
-	SDL_Rect MoneyRect;
-	MoneyRect.x = 0;
-	MoneyRect.y = 0;
-	MoneyRect.w = 100;
-	MoneyRect.h = 100;
+	SDL_Rect moneyRect;
+	moneyRect.x = 0;
+	moneyRect.y = 0;
+	moneyRect.w = 100;
+	moneyRect.h = 100;
 
 	SDL_Rect visitRect;
-	visitRect.x = SCREEN_WIDTH / 2 - QuitRect.w / 2;;
+	visitRect.x = SCREEN_WIDTH / 2 - quitRect.w / 2;;
 	visitRect.y = -SCREEN_HEIGHT + 900  ;
 	visitRect.w = 215;
 	visitRect.h = 129;
 
-	const int StartY = StartRect.y;
-	const int QuitY = QuitRect.y;
-	const int ArrowY = ArrowRect.y;
-	const int CharY = CharRect.y;
+	const int StartY = startRect.y;
+	const int QuitY = quitRect.y;
+	const int ArrowY = arrowRect.y;
+	const int CharY = charRect.y;
 	const int VisitY = visitRect.y;
 
 	while (playing == true)
@@ -425,78 +425,78 @@ int main(int argc, char* args[])
 		SDL_RenderClear(renderer);
 		SDL_SetRenderDrawColor(renderer, 219, 192, 50, SDL_ALPHA_OPAQUE);
 
-		SDL_RenderCopy(renderer, BackgroundTexture, NULL, &BackRect);
-		SDL_RenderCopy(renderer, QuitTexture, NULL, &QuitRect);
-		SDL_RenderCopy(renderer, StartTexture, NULL, &StartRect);
-		SDL_RenderCopy(renderer, ArrowTexture, NULL, &ArrowRect);
-		SDL_RenderCopy(renderer, characterTexture, NULL, &CharRect);	
+		SDL_RenderCopy(renderer, backgroundTexture, NULL, &backRect);
+		SDL_RenderCopy(renderer, quitTexture, NULL, &quitRect);
+		SDL_RenderCopy(renderer, startTexture, NULL, &startRect);
+		SDL_RenderCopy(renderer, arrowTexture, NULL, &arrowRect);
+		SDL_RenderCopy(renderer, characterTexture, NULL, &charRect);	
 		SDL_RenderCopy(renderer, visitTexture, NULL, &visitRect);
 		SDL_RenderPresent(renderer);
 
 		
 		
-			if (OnMap == true and OnQuestion == false)
+			if (onMap == true and onQuestion == false)
 			{
 
-				StartRect.y = StartY - SCREEN_HEIGHT;
-				QuitRect.y = QuitY - SCREEN_HEIGHT;
-				ArrowRect.y = ArrowY + SCREEN_HEIGHT;
-				CharRect.y = CharY + SCREEN_HEIGHT;
+				startRect.y = StartY - SCREEN_HEIGHT;
+				quitRect.y = QuitY - SCREEN_HEIGHT;
+				arrowRect.y = ArrowY + SCREEN_HEIGHT;
+				charRect.y = CharY + SCREEN_HEIGHT;
 				visitRect.y = VisitY + SCREEN_HEIGHT;
 
-				VisitButton(CharRect, visitRect);
+				visitButton(charRect, visitRect);
 
 			}
 			else
 			{
-				if (OnQuestion == false)
+				if (onQuestion == false)
 				{
-					QuitRect.y = QuitY + SCREEN_HEIGHT;
-					StartRect.y = StartY + SCREEN_HEIGHT;
-					ArrowRect.y = ArrowY - SCREEN_HEIGHT;
-					CharRect.y = CharY - SCREEN_HEIGHT;
+					quitRect.y = QuitY + SCREEN_HEIGHT;
+					startRect.y = StartY + SCREEN_HEIGHT;
+					arrowRect.y = ArrowY - SCREEN_HEIGHT;
+					charRect.y = CharY - SCREEN_HEIGHT;
 					visitRect.y = VisitY - SCREEN_HEIGHT;
 				}
 				else
 				{
-					CharRect.y = CharY - SCREEN_HEIGHT;
+					charRect.y = CharY - SCREEN_HEIGHT;
 					visitRect.y = VisitY - SCREEN_HEIGHT;
 				}
 
 			}
 
-		if (OnMap == 1 and OnQuestion == false)
+		if (onMap == 1 and onQuestion == false)
 		{
-			if (CharRect.y + CharFixY > CharFlagY)
+			if (charRect.y + charFixY > charFlagY)
 			{
-				CharFixY = CharFixY - 2;
+				charFixY = charFixY - 2;
 			}
-			else if (CharRect.y != CharFlagY)
+			else if (charRect.y != charFlagY)
 			{
-				CharFixY += 1;
+				charFixY += 1;
 			}
-			else if (CharRect.y + CharFixY < CharFlagY)
+			else if (charRect.y + charFixY < charFlagY)
 			{
-				CharFixY = CharFixY + 2;
+				charFixY = charFixY + 2;
 			}
 
-			CharRect.y = CharRect.y + CharFixY;
+			charRect.y = charRect.y + charFixY;
 
-			if (CharRect.x > CharFlagX)
+			if (charRect.x > charFlagX)
 			{
-				CharRect.x -= 2;
+				charRect.x -= 2;
 			}
-			else if (CharRect.x != CharFlagX)
+			else if (charRect.x != charFlagX)
 			{
-				CharRect.x += 1;
+				charRect.x += 1;
 			}
-			else if (CharRect.x < CharFlagX)
+			else if (charRect.x < charFlagX)
 			{
-				CharRect.x += 2;
+				charRect.x += 2;
 			}
 		}
 
-		ButtonEvents(QuitRect, StartRect, BackRect, ArrowRect, CharRect, visitRect, QuitMin, StartMin);
+		buttonEvents(quitRect, startRect, backRect, arrowRect, charRect, visitRect, quitMin, startMin);
 
 		SDL_Delay(5);
 	}
